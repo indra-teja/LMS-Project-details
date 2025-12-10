@@ -1,0 +1,21 @@
+.editor {
+  width: 100%;
+  height: 350px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: border 0.2s ease;
+}
+
+.editor:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.dark .editor {
+  background: #1f1f1f;
+  border-color: #333;
+  color: white;
+}

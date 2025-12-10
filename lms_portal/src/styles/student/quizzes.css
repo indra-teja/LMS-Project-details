@@ -1,0 +1,9 @@
+.quiz-card {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.quiz-card button {
+  padding: 8px 14px;
+}

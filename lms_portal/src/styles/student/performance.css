@@ -1,0 +1,16 @@
+.performance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.chart-card {
+  text-align: center;
+}
+
+.chart-card h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+}

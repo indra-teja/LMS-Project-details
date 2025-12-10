@@ -1,0 +1,18 @@
+.toggle-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #FFA700;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: #FF7A00;
+}
+
+.dark .toggle-btn {
+  background: #FFB733;
+  color: black;
+}

@@ -1,0 +1,24 @@
+.query-box {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.query-box:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.card button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,67 @@
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: #f5f7fa;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dark {
+  background: #121212;
+  color: #eaeaea;
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding: 25px;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Card Style */
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+.dark .card {
+  background: #1e1e1e;
+  color: #ddd;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.05);
+}
+
+/* Dashboard Grid */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

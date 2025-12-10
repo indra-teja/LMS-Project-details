@@ -1,0 +1,76 @@
+/* Sidebar Container */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #1f1f1f;
+  padding: 25px 20px;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column; /* Important */
+}
+
+/* Logo Container */
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px; /* spacing between logo and nav */
+}
+
+/* Logo Image */
+.image {
+  width: 120px;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.image:hover {
+  transform: scale(1.15);
+}
+
+/* Navigation Links */
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* space between each nav link */
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: 0.25s ease;
+}
+
+.sidebar nav a:hover {
+  background: #FFA700;
+  color: #000;
+  transform: translateX(6px);
+}
+
+/* Dark theme support */
+.dark .sidebar {
+  background: #000;
+}
+
+/* Logout Button — Fixed at Bottom */
+.logout-btn {
+  margin-top: auto; /* Push to bottom */
+  width: 60%;
+  padding: 12px;
+  border: none;
+  background: #FFA700;
+  color: black;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #FF7A00;
+  transform: translateX(4px);
+}

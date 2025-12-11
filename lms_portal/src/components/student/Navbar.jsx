@@ -1,5 +1,5 @@
 import DarkModeToggle from "./DarkModeToggle.jsx";
-import "../styles/navbar.css";
+import "../../styles/navbar.css";
 
 function Navbar() {
   return (

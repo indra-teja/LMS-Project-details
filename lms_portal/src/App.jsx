@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar.jsx";
-import Navbar from "./components/Navbar.jsx";
+import Sidebar from "./components/student/Sidebar.jsx";
+import Navbar from "./components/student/Navbar.jsx";
+
+
 
 // Student Pages
 import Dashboard from "./pages/student/Dashboard.jsx";

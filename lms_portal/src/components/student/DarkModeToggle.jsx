@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext.jsx";
-import "../styles/toggle.css";
+import { ThemeContext } from "../../context/ThemeContext.jsx";
+import "../../styles/toggle.css";
 
 function DarkModeToggle() {
   const { dark, setDark } = useContext(ThemeContext);

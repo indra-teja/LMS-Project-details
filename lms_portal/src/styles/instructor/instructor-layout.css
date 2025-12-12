@@ -1,0 +1,16 @@
+.instructor-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.instructor-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.instructor-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}

@@ -1,0 +1,42 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.i-box h2 {
+  margin-bottom: 20px;
+}
+
+.attendance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.att-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.mark-btn {
+  padding: 8px 14px;
+  background: #FFA700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mark-btn:hover {
+  background: #ff8c00;
+}
+
+/* Dark mode */
+.dark .att-row {
+  background: #333;
+  color: white;
+}

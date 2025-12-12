@@ -1,0 +1,43 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.i-box h2 {
+  margin-bottom: 15px;
+}
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.performance-table th,
+.performance-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.performance-table th {
+  background: #FFE3B3;
+}
+
+.performance-table tr:hover td {
+  background: #FFF5DA;
+}
+
+/* Dark mode */
+.dark .performance-table th {
+  background: #FFB733;
+  color: #000;
+}
+
+.dark .performance-table td {
+  color: white;
+}
+
+.dark .performance-table tr:hover td {
+  background: #333;
+}

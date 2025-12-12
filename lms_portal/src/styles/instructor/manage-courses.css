@@ -1,0 +1,61 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.i-box h2 {
+  margin-bottom: 18px;
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.course-table th,
+.course-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.course-table th {
+  background: #FFE3B3;
+}
+
+.action-btns button {
+  padding: 8px 12px;
+  margin-right: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background: #FFA700;
+}
+
+.delete-btn {
+  background: #ff5757;
+  color: white;
+}
+
+/* Dark mode */
+.dark .i-box {
+  background: #1c1c1c;
+  color: white;
+}
+
+.dark .course-table th {
+  background: #FFB733;
+  color: #000;
+}
+
+.dark .course-table td {
+  color: white;
+}
+
+.dark .course-table tr:hover td {
+  background: #333;
+}

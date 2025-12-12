@@ -1,0 +1,16 @@
+.i-navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: #222;
+  color: white;
+  align-items: center;
+}
+
+/* Mobile */
+@media(max-width: 768px) {
+  .i-navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

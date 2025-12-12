@@ -1,0 +1,45 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.i-box h2 {
+  margin-bottom: 16px;
+}
+
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.quiz-form input,
+.quiz-form textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.add-question-btn,
+.save-quiz-btn {
+  padding: 10px 14px;
+  background: #FFA700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-question-btn:hover,
+.save-quiz-btn:hover {
+  background: #ff8c00;
+}
+
+/* Dark mode */
+.dark .quiz-form input,
+.dark .quiz-form textarea {
+  background: #333;
+  border-color: #555;
+  color: white;
+}

@@ -9,7 +9,7 @@ function Performance() {
     { name: "Remaining", value: 40 }
   ];
 
-  const COLORS = ["#FFA700", "#f0f0f0"];
+  const COLORS = ["#4979e1ff", "#f0f0f0"];
 
 
   // Bar chart data (quiz scores)
@@ -60,7 +60,7 @@ function Performance() {
               <XAxis dataKey="quiz" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="score" fill="#FFA700" />
+              <Bar dataKey="score" fill="#2563eb" />
             </BarChart>
           </ResponsiveContainer>
 

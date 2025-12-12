@@ -12,7 +12,8 @@
   background: #FF7A00;
 }
 
-.dark .toggle-btn {
+/* Apply dark mode styling when body has class="dark" */
+body.dark .toggle-btn {
   background: #FFB733;
   color: black;
 }

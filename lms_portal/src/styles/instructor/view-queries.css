@@ -1,0 +1,34 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.query-card {
+  background: #f7f7f7;
+  padding: 16px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+}
+
+.query-card h4 {
+  margin-bottom: 6px;
+}
+
+.reply-btn {
+  padding: 8px 12px;
+  background: #FFA700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reply-btn:hover {
+  background: #ff8c00;
+}
+
+/* Dark */
+.dark .query-card {
+  background: #333;
+  color: white;
+}

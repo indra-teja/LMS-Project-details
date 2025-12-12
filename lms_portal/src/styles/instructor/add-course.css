@@ -1,0 +1,87 @@
+/* Page container */
+.instructor-dashboard {
+  width: 100%;
+  padding: 20px;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Title */
+.instructor-dashboard h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Cards grid */
+.instructor-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Dashboard card design */
+.i-card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.i-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* Card title */
+.i-card h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+/* Card subtitle */
+.i-card p {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* Light Mode Variables */
+:root {
+  --bg-color: #f4f4f4;
+  --text-color: #222;
+  --text-light: #555;
+  --card-bg: #ffffff;
+  --border-color: #ddd;
+  --accent-color: #FFA700;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-color: #1b1b1b;
+  --text-color: #fafafa;
+  --text-light: #cccccc;
+  --card-bg: #262626;
+  --border-color: #444;
+}
+
+/* Responsive Grid */
+@media (max-width: 1200px) {
+  .instructor-dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .instructor-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .instructor-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,8 +2,18 @@
   padding: 20px;
   background: white;
   border-radius: 8px;
+  box-shadow: 5px;
 }
 
 .quiz-card button {
   padding: 8px 14px;
+  background-color: #2563eb;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 2vh;
+  
+}
+.quiz-card button:hover{
+  background-color: #FFA700;
 }

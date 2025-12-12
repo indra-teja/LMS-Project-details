@@ -12,6 +12,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease;
+  background-color: #4979e1ff;
 }
 
 .course-card button:hover {

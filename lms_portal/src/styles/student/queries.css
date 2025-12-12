@@ -22,3 +22,6 @@
   border-radius: 8px;
   cursor: pointer;
 }
+.card button:hover{
+  background-color: #ffa700;
+}

@@ -18,11 +18,11 @@
   background: #2563eb;
   border: none;
   color: white;
-  border-radius: 8px;
+  border-radius: 8px; 
   cursor: pointer;
   transition: 0.25s ease;
 }
 
 .profile-form button:hover {
-  background: #1e40af;
+  background: #FFA700;
 }

@@ -1,4 +1,32 @@
 .attendance-card {
-  font-size: 17px;
-  line-height: 1.8;
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Table inside the card */
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.attendance-table th {
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.attendance-table tr:last-child td {
+  border-bottom: none;
 }

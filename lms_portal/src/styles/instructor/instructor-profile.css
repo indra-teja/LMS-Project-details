@@ -1,0 +1,52 @@
+.i-box {
+  padding: 22px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.profile-section {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.profile-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #FFA700;
+}
+
+.profile-details p {
+  margin: 6px 0;
+}
+
+.update-btn {
+  padding: 10px 16px;
+  background: #FFA700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.update-btn:hover {
+  background: #ff8c00;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Dark */
+.dark .i-box {
+  background: #1c1c1c;
+  color: white;
+}

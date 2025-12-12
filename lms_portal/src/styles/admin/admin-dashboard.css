@@ -1,0 +1,32 @@
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.admin-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .admin-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,16 @@
+.admin-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-box th,
+.admin-box td {
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  text-align: left;
+}
+
+.admin-box th {
+  background: var(--accent-color);
+  color: white;
+}

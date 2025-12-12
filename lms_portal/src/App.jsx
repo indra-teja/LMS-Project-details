@@ -2,10 +2,10 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Universal Login
+/* -------------------- Universal Login -------------------- */
 import Login from "./pages/Login.jsx";
 
-// Student Layout + Pages
+/* -------------------- Student Panel -------------------- */
 import StudentLayout from "./layout/StudentLayout.jsx";
 import Dashboard from "./pages/student/Dashboard.jsx";
 import Courses from "./pages/student/Courses.jsx";
@@ -16,7 +16,7 @@ import Practice from "./pages/student/Practice.jsx";
 import Profile from "./pages/student/Profile.jsx";
 import Queries from "./pages/student/Queries.jsx";
 
-// Instructor Layout + Pages
+/* -------------------- Instructor Panel -------------------- */
 import InstructorLayout from "./layout/InstructorLayout.jsx";
 import InstructorDashboard from "./pages/instructor/InstructorDashboard.jsx";
 import AddCourse from "./pages/instructor/AddCourse.jsx";
@@ -27,16 +27,25 @@ import StudentPerformance from "./pages/instructor/StudentPerformance.jsx";
 import ViewQueries from "./pages/instructor/ViewQueries.jsx";
 import InstructorProfile from "./pages/instructor/InstructorProfile.jsx";
 
+/* -------------------- Admin Panel -------------------- */
+import AdminLayout from "./layout/admin/AdminLayout.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import ManageStudents from "./pages/admin/ManageStudents.jsx";
+import ManageInstructors from "./pages/admin/ManageInstructors.jsx";
+import ManageAdminCourses from "./pages/admin/ManageCourses.jsx";
+import AdminQueries from "./pages/admin/AdminQueries.jsx";
+import AdminSettings from "./pages/admin/AdminSettings.jsx";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Universal Login */}
+        {/* -------------------- Universal Login -------------------- */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Student Panel */}
+        {/* -------------------- Student Panel -------------------- */}
         <Route path="/student" element={<StudentLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="courses" element={<Courses />} />
@@ -48,7 +57,7 @@ function App() {
           <Route path="queries" element={<Queries />} />
         </Route>
 
-        {/* Instructor Panel */}
+        {/* -------------------- Instructor Panel -------------------- */}
         <Route path="/instructor" element={<InstructorLayout />}>
           <Route path="dashboard" element={<InstructorDashboard />} />
           <Route path="add-course" element={<AddCourse />} />
@@ -58,6 +67,16 @@ function App() {
           <Route path="student-performance" element={<StudentPerformance />} />
           <Route path="view-queries" element={<ViewQueries />} />
           <Route path="profile" element={<InstructorProfile />} />
+        </Route>
+
+        {/* -------------------- Admin Panel -------------------- */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="manage-students" element={<ManageStudents />} />
+          <Route path="manage-instructors" element={<ManageInstructors />} />
+          <Route path="manage-courses" element={<ManageAdminCourses />} />
+          <Route path="queries" element={<AdminQueries />} />
+          <Route path="settings" element={<AdminSettings />} />
         </Route>
 
       </Routes>

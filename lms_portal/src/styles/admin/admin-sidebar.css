@@ -1,0 +1,42 @@
+.admin-sidebar {
+  width: 240px;
+  background: var(--card-bg);
+  border-right: 1px solid var(--border-color);
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.admin-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.admin-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-menu li {
+  margin-bottom: 18px;
+}
+
+.admin-menu a {
+  text-decoration: none;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.admin-menu a:hover {
+  color: var(--accent-color);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 180px;
+  }
+}

@@ -1,0 +1,7 @@
+.query-box {
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  margin-bottom: 12px;
+  border-radius: 10px;
+}

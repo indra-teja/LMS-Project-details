@@ -1,0 +1,19 @@
+.settings-form label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.settings-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.settings-form button {
+  background: var(--accent-color);
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+}

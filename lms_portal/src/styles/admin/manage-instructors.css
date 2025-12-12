@@ -1,0 +1,11 @@
+.instructor-list {
+  margin-top: 20px;
+}
+
+.instructor-item {
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: var(--card-bg);
+}

@@ -1,0 +1,25 @@
+.admin-navbar {
+  height: 60px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  left: 240px;
+  right: 0;
+  top: 0;
+  z-index: 50;
+}
+
+.admin-navbar h1 {
+  font-size: 20px;
+  color: var(--accent-color);
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .admin-navbar {
+    left: 0;
+  }
+}

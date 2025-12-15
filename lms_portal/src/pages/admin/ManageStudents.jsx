@@ -22,8 +22,18 @@ function ManageStudents() {
         </thead>
         <tbody>
           <tr>
-            <td>John Doe</td>
-            <td>john@mail.com</td>
+            <td>jeswanth</td>
+            <td>jashu@mail.com</td>
+            <td>
+              <button className="admin-btn secondary">Edit</button>{" "}
+              <button className="admin-btn danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td>prabhu</td>
+            <td>prabhu@mail.com</td>
             <td>
               <button className="admin-btn secondary">Edit</button>{" "}
               <button className="admin-btn danger">Delete</button>

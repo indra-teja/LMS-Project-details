@@ -1,43 +1,98 @@
+/* ===============================
+   Main Container
+================================ */
 .i-box {
-  padding: 22px;
-  background: #fff;
+  padding: 24px;
+  background: var(--card-bg);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .i-box h2 {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
+/* ===============================
+   Card Wrapper
+================================ */
+.performance-card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+/* ===============================
+   Table
+================================ */
 .performance-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 14px;
 }
 
 .performance-table th,
 .performance-table td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
 }
 
+/* Table header */
 .performance-table th {
-  background: #FFE3B3;
-}
-
-.performance-table tr:hover td {
-  background: #FFF5DA;
-}
-
-/* Dark mode */
-.dark .performance-table th {
-  background: #FFB733;
+  background: rgba(255, 167, 0, 0.25);
+  font-weight: 600;
   color: #000;
 }
 
-.dark .performance-table td {
-  color: white;
+/* Row hover */
+.performance-table tbody tr:hover td {
+  background: rgba(255, 167, 0, 0.12);
 }
 
-.dark .performance-table tr:hover td {
+/* ===============================
+   Status Badges
+================================ */
+.status {
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.status.good {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.status.average {
+  background: rgba(241, 196, 15, 0.25);
+  color: #f39c12;
+}
+
+.status.poor {
+  background: rgba(231, 76, 60, 0.25);
+  color: #e74c3c;
+}
+
+/* ===============================
+   Dark Mode
+================================ */
+[data-theme="dark"] .performance-table th {
+  background: rgba(255, 167, 0, 0.35);
+  color: #000;
+}
+
+[data-theme="dark"] .performance-table td {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .performance-table tbody tr:hover td {
   background: #333;
 }

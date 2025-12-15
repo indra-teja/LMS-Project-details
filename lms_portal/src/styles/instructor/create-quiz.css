@@ -1,45 +1,150 @@
+/* ===============================
+   Main Container
+================================ */
 .i-box {
-  padding: 22px;
-  background: #fff;
+  padding: 24px;
+  background: var(--card-bg);
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .i-box h2 {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
+/* ===============================
+   Card Wrapper
+================================ */
+.create-quiz-card {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   Form Layout
+================================ */
 .quiz-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===============================
+   Labels
+================================ */
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* ===============================
+   Inputs & Textarea
+================================ */
 .quiz-form input,
 .quiz-form textarea {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--text-color);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.quiz-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+/* Hover */
+.quiz-form input:hover,
+.quiz-form textarea:hover {
+  border-color: var(--accent-color);
+}
+
+/* Focus (IMPORTANT FIX) */
+.quiz-form input:focus,
+.quiz-form textarea:focus {
+  border-color: var(--accent-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.28);
+}
+
+/* ===============================
+   Buttons
+================================ */
+.quiz-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
 }
 
 .add-question-btn,
 .save-quiz-btn {
-  padding: 10px 14px;
-  background: #FFA700;
+  padding: 10px 20px;
   border-radius: 8px;
-  border: none;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
+  border: none;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.add-question-btn:hover,
+/* Secondary button */
+.add-question-btn {
+  background: transparent;
+  border: 1.5px solid var(--accent-color);
+  color: var(--accent-color);
+}
+
+.add-question-btn:hover {
+  background: rgba(255, 167, 0, 0.15);
+}
+
+/* Primary button */
+.save-quiz-btn {
+  background: var(--accent-color);
+  color: #000;
+}
+
 .save-quiz-btn:hover {
   background: #ff8c00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Dark mode */
-.dark .quiz-form input,
-.dark .quiz-form textarea {
-  background: #333;
-  border-color: #555;
-  color: white;
+/* ===============================
+   Dark Mode
+================================ */
+[data-theme="dark"] .quiz-form input,
+[data-theme="dark"] .quiz-form textarea {
+  background: #1f1f1f;
+  border-color: #444;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .quiz-form input:focus,
+[data-theme="dark"] .quiz-form textarea:focus {
+  background: #1f1f1f;
+  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.35);
 }

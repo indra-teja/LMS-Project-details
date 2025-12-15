@@ -1,19 +1,42 @@
-.toggle-btn {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  background: #FFA700;
-  font-weight: 600;
+/* isolate from global button styles */
+.theme-toggle {
+  width: 52px;
+  height: 26px;
+  border-radius: 20px;
+  background-color: #dcdcdc;
+  padding: 3px;
   cursor: pointer;
-  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
 
-.toggle-btn:hover {
-  background: #FF7A00;
+/* dark state */
+.theme-toggle.dark {
+  background-color: #333;
 }
 
-/* Apply dark mode styling when body has class="dark" */
-body.dark .toggle-btn {
-  background: #FFB733;
-  color: black;
+.toggle-knob {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(0);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle.dark .toggle-knob {
+  transform: translateX(26px);
+  background-color: #111;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  line-height: 1;
+  pointer-events: none;
 }

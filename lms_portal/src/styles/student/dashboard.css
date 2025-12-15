@@ -1,5 +1,72 @@
+/* ===============================
+   Dashboard Wrapper
+================================ */
+.student-dashboard {
+  padding: 24px;
+}
+
+.student-dashboard h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.dashboard-subtitle {
+  font-size: 14px;
+  color: var(--text-light);
+  margin-bottom: 22px;
+}
+
+/* ===============================
+   Cards Grid
+================================ */
 .dashboard-cards {
-  display: flex;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+/* ===============================
+   Individual Card
+================================ */
+.dashboard-card {
+  background: var(--card-bg);
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-color);
+}
+
+/* Card text */
+.dashboard-card h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.dashboard-card p {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* ===============================
+   Dark Mode
+================================ */
+[data-theme="dark"] .dashboard-card {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .dashboard-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
 }

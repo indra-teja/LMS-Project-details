@@ -9,6 +9,7 @@
   margin-bottom: 18px;
 }
 
+/* Table */
 .course-table {
   width: 100%;
   border-collapse: collapse;
@@ -18,33 +19,55 @@
 .course-table td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
 .course-table th {
   background: #FFE3B3;
+  font-weight: 600;
+}
+
+/* Action buttons */
+.action-btns {
+  display: flex;
+  gap: 8px;
 }
 
 .action-btns button {
-  padding: 8px 12px;
-  margin-right: 6px;
+  padding: 7px 12px;
   border-radius: 6px;
   border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.action-btns button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Individual buttons */
+.view-btn {
+  background: #4dabf7;
+  color: #fff;
 }
 
 .edit-btn {
   background: #FFA700;
+  color: #000;
 }
 
 .delete-btn {
   background: #ff5757;
-  color: white;
+  color: #fff;
 }
 
 /* Dark mode */
 .dark .i-box {
   background: #1c1c1c;
-  color: white;
+  color: #fff;
 }
 
 .dark .course-table th {
@@ -53,7 +76,7 @@
 }
 
 .dark .course-table td {
-  color: white;
+  color: #fff;
 }
 
 .dark .course-table tr:hover td {

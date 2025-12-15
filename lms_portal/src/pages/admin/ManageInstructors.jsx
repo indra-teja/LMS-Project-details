@@ -21,7 +21,7 @@ function ManageInstructors() {
         </thead>
         <tbody>
           <tr>
-            <td>Jane Smith</td>
+            <td>Indra Teja</td>
             <td>React</td>
             <td>
               <button className="admin-btn secondary">Edit</button>{" "}

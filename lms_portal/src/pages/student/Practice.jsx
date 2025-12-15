@@ -1,19 +1,95 @@
-import { useState } from "react";
-import "../../styles/student/practice.css";
+import { useEffect, useState } from "react";
 
 function Practice() {
-  const [text, setText] = useState("");
+  const [pyodide, setPyodide] = useState(null);
+  const [code, setCode] = useState(`for i in range(5):
+    print(i)`);
+  const [output, setOutput] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPyodide = async () => {
+      const pyodideScript = document.createElement("script");
+      pyodideScript.src =
+        "https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js";
+      pyodideScript.onload = async () => {
+        const py = await window.loadPyodide();
+        setPyodide(py);
+        setLoading(false);
+      };
+      document.body.appendChild(pyodideScript);
+    };
+
+    loadPyodide();
+  }, []);
+
+  const runCode = async () => {
+    if (!pyodide) return;
+
+    try {
+      pyodide.runPython(`
+import sys
+from io import StringIO
+sys.stdout = StringIO()
+`);
+
+      pyodide.runPython(code);
+
+      const result = pyodide.runPython("sys.stdout.getvalue()");
+      setOutput(result || "No output");
+    } catch (err) {
+      setOutput(err.toString());
+    }
+  };
 
   return (
-    <div>
-      <h1>Practice Space</h1>
+    <div style={{ padding: "20px" }}>
+      <h2>🐍 Online Python Compiler</h2>
 
-      <textarea
-        className="editor"
-        value={text}
-        onChange={e => setText(e.target.value)}
-        placeholder="Write your notes or code here..."
-      />
+      {loading ? (
+        <p>Loading Python environment...</p>
+      ) : (
+        <>
+          <textarea
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            rows={10}
+            style={{
+              width: "100%",
+              fontFamily: "monospace",
+              fontSize: "14px",
+              padding: "10px",
+            }}
+          />
+
+          <br />
+          <button
+            onClick={runCode}
+            style={{
+              marginTop: "10px",
+              padding: "8px 16px",
+              background: "#FFA700",
+              border: "none",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            ▶ Run Code
+          </button>
+
+          <h3>Output</h3>
+          <pre
+            style={{
+              background: "#111",
+              color: "#0f0",
+              padding: "10px",
+              minHeight: "100px",
+            }}
+          >
+            {output}
+          </pre>
+        </>
+      )}
     </div>
   );
 }

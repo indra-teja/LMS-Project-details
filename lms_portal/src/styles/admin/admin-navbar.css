@@ -1,35 +1,49 @@
-.admin-navbar {
-  height: 60px;
-  background: #ffffff;
-  padding: 0 20px;
+header.admin-navbar {
+  height: 72px;
+  min-height: 72px;              /* CRITICAL */
+  padding: 0 28px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-}
-.admin-navbar h3{
-  color: #FF7A00;
-}
-.dark .admin-navbar {
-  background: #111;
-  color: #fff;
-  box-shadow: none;
-}
-.dark .admin-navbar h3{
-  color: white;
+
+  background: #ffffff;
+  border-bottom: 1px solid var(--admin-border);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 
+header.admin-navbar h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #FF7A00;
+}
+
+/* Dark mode */
+[data-theme="dark"] header.admin-navbar {
+  background: #111;
+}
+
+[data-theme="dark"] header.admin-navbar h3 {
+  color: #ffffff;
+}
+
+/* Theme toggle button */
 .theme-toggle-btn {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
   background: #FFA700;
   color: #000;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s ease;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .theme-toggle-btn:hover {
   background: #FF7A00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }

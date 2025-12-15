@@ -22,7 +22,7 @@ function ManageCourses() {
         <tbody>
           <tr>
             <td>Python</td>
-            <td>Alex</td>
+            <td>Koti</td>
             <td>
               <button className="admin-btn secondary">Edit</button>{" "}
               <button className="admin-btn danger">Delete</button>

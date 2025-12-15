@@ -21,7 +21,7 @@ function AdminQueries() {
         </thead>
         <tbody>
           <tr>
-            <td>Ravi</td>
+            <td>Sankar</td>
             <td>Course access issue</td>
             <td>
               <button className="admin-btn">Reply</button>

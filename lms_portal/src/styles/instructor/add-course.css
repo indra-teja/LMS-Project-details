@@ -1,87 +1,189 @@
-/* Page container */
-.instructor-dashboard {
-  width: 100%;
-  padding: 20px;
-  background: var(--bg-color);
-  color: var(--text-color);
+/* ===============================
+   Main Container
+================================ */
+.i-box {
+  padding: 24px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* Title */
-.instructor-dashboard h1 {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.i-box h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
-/* Cards grid */
-.instructor-dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+/* ===============================
+   Card Wrapper
+================================ */
+.add-course-card {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   Form Layout
+================================ */
+.i-form {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
-/* Dashboard card design */
-.i-card {
-  background: var(--card-bg);
-  padding: 22px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.i-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-}
-
-/* Card title */
-.i-card h3 {
-  margin-bottom: 8px;
-  font-size: 18px;
-}
-
-/* Card subtitle */
-.i-card p {
+/* ===============================
+   Labels
+================================ */
+.form-group label {
   font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* ===============================
+   Inputs & Textarea
+================================ */
+.form-group input,
+.form-group textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.02);
+  color: var(--text-color);
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Hover */
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: var(--accent-color);
+}
+
+/* Focus (IMPORTANT) */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.28);
+}
+
+/* ===============================
+   Upload Section
+================================ */
+.upload-box {
+  border: 2px dashed var(--border-color);
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 167, 0, 0.08),
+    transparent
+  );
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.upload-box:hover {
+  border-color: var(--accent-color);
+  background: rgba(255, 167, 0, 0.14);
+}
+
+/* Hide default input */
+.upload-box input[type="file"] {
+  display: none;
+}
+
+/* Custom upload button */
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent-color);
+  color: #000;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.upload-label:hover {
+  background: #ff8c00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Upload helper text */
+.upload-text {
+  margin-top: 10px;
+  font-size: 13px;
   color: var(--text-light);
 }
 
-/* Light Mode Variables */
-:root {
-  --bg-color: #f4f4f4;
-  --text-color: #222;
-  --text-light: #555;
-  --card-bg: #ffffff;
-  --border-color: #ddd;
-  --accent-color: #FFA700;
+/* ===============================
+   Submit Button
+================================ */
+.add-btn {
+  align-self: flex-start;
+  padding: 10px 22px;
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-/* Dark Mode Variables */
-[data-theme="dark"] {
-  --bg-color: #1b1b1b;
-  --text-color: #fafafa;
-  --text-light: #cccccc;
-  --card-bg: #262626;
-  --border-color: #444;
+.add-btn:hover {
+  background: #ff8c00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive Grid */
-@media (max-width: 1200px) {
-  .instructor-dashboard-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+/* ===============================
+   Dark Mode
+================================ */
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+  background: #1f1f1f;
+  border-color: #444;
+  color: #ffffff;
 }
 
-@media (max-width: 800px) {
-  .instructor-dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+  background: #1f1f1f;
+  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.35);
 }
 
-@media (max-width: 550px) {
-  .instructor-dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+[data-theme="dark"] .upload-box {
+  background: rgba(255, 167, 0, 0.06);
 }

@@ -5,38 +5,75 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-.i-box h2 {
-  margin-bottom: 20px;
+.i-box h1 {
+  margin-bottom: 6px;
 }
 
-.attendance-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.subtitle {
+  margin-bottom: 22px;
+  color: #555;
 }
 
-.att-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  border-radius: 8px;
-  background: #f7f7f7;
+/* Dashboard grid */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
 }
 
-.mark-btn {
+/* Individual card */
+.dash-card {
+  background: #f9f9f9;
+  padding: 18px;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.dash-card h3 {
+  margin-bottom: 6px;
+}
+
+.dash-card p {
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+  color: #666;
+}
+
+/* Button */
+.dash-btn {
   padding: 8px 14px;
   background: #FFA700;
   border: none;
   border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.mark-btn:hover {
+.dash-btn:hover {
   background: #ff8c00;
 }
 
 /* Dark mode */
-.dark .att-row {
-  background: #333;
-  color: white;
+.dark .i-box {
+  background: #1c1c1c;
+  color: #fff;
+}
+
+.dark .subtitle,
+.dark .dash-card p {
+  color: #ccc;
+}
+
+.dark .dash-card {
+  background: #2a2a2a;
+}
+
+.dark .dash-card:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
 }

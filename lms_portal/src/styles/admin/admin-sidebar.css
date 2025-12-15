@@ -1,42 +1,104 @@
+/* Sidebar Container */
 .admin-sidebar {
   width: 240px;
-  background: var(--card-bg);
-  border-right: 1px solid var(--border-color);
   height: 100vh;
-  padding: 20px;
-  position: fixed;
-  left: 0;
-  top: 0;
+  background: #1f1f1f;
+  padding: 25px 20px;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
 }
 
-.admin-logo {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 25px;
+/* Logo Container */
+.admin-logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.dark .admin-sidebar {
+  background: #000;
 }
 
+.dark .admin-menu a {
+  color: #e5e7eb;
+}
+
+.dark .admin-menu a:hover {
+  background: #FFA700;
+  color: #000;
+}
+
+/* Logo Image */
+.admin-sidebar img {
+  width: 120px;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.admin-sidebar img:hover {
+  transform: scale(1.15);
+}
+
+/* Navigation Links */
 .admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   list-style: none;
   padding: 0;
-}
-
-.admin-menu li {
-  margin-bottom: 18px;
+  margin: 0;
+  flex: 1;
 }
 
 .admin-menu a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
   text-decoration: none;
-  font-size: 16px;
-  color: var(--text-color);
+  color: #e0e0e0;
+  transition: 0.25s ease;
 }
 
 .admin-menu a:hover {
-  color: var(--accent-color);
+  background: #FFA700;
+  color: #000;
+  transform: translateX(6px);
 }
 
-/* Mobile */
+/* Dark theme support (optional) */
+.dark .admin-sidebar {
+  background: #000;
+}
+
+/* Logout Button — Fixed at Bottom */
+.logout-btn {
+  margin-top: auto;
+  width: 60%;
+  padding: 12px;
+  border: none;
+  background: #FFA700;
+  color: black;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #FF7A00;
+  transform: translateX(4px);
+}
+
 @media (max-width: 768px) {
   .admin-sidebar {
-    width: 180px;
+    width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-sidebar {
+    display: none;
   }
 }

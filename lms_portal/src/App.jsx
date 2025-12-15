@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 /* -------------------- Universal Login -------------------- */
@@ -21,11 +19,11 @@ import InstructorLayout from "./layout/InstructorLayout.jsx";
 import InstructorDashboard from "./pages/instructor/InstructorDashboard.jsx";
 import AddCourse from "./pages/instructor/AddCourse.jsx";
 import ManageCourses from "./pages/instructor/ManageCourses.jsx";
-import AttendanceTracking from "./pages/instructor/AttendanceTracking.jsx";
 import CreateQuiz from "./pages/instructor/CreateQuiz.jsx";
 import StudentPerformance from "./pages/instructor/StudentPerformance.jsx";
 import ViewQueries from "./pages/instructor/ViewQueries.jsx";
 import InstructorProfile from "./pages/instructor/InstructorProfile.jsx";
+import InstructorAttendance from "./pages/instructor/Instructorattendance.jsx";
 
 /* -------------------- Admin Panel -------------------- */
 import AdminLayout from "./layout/admin/AdminLayout.jsx";
@@ -41,7 +39,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* -------------------- Universal Login -------------------- */}
+        {/* -------------------- Login -------------------- */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
 
@@ -62,7 +60,7 @@ function App() {
           <Route path="dashboard" element={<InstructorDashboard />} />
           <Route path="add-course" element={<AddCourse />} />
           <Route path="manage-courses" element={<ManageCourses />} />
-          <Route path="attendance" element={<AttendanceTracking />} />
+          <Route path="attendance" element={<InstructorAttendance />} />
           <Route path="create-quiz" element={<CreateQuiz />} />
           <Route path="student-performance" element={<StudentPerformance />} />
           <Route path="view-queries" element={<ViewQueries />} />

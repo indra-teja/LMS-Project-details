@@ -3,8 +3,11 @@
   justify-content: space-between;
   padding: 15px 20px;
   background: #222;
-  color: white;
+  color: #FFA700;
   align-items: center;
+}
+.dark .i-navbar h3{
+  color: white;
 }
 
 /* Mobile */

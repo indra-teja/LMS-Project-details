@@ -27,6 +27,16 @@ body {
   display: flex;
   flex-direction: column;
 }
+.dark .admin-navbar {
+  background: #111;
+  color: #fff;
+}
+
+.dark .theme-toggle-btn {
+  background: #FFA700;
+  color: #000;
+}
+
 
 .content {
   padding: 25px;

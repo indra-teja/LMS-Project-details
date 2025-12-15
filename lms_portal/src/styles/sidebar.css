@@ -55,6 +55,14 @@
 .dark .sidebar {
   background: #000;
 }
+.dark .sidebar nav a {
+  color: #e5e7eb;
+}
+
+.dark .sidebar nav a:hover {
+  background: #FFA700;
+  color: #000;
+}
 
 /* Logout Button — Fixed at Bottom */
 .logout-btn {

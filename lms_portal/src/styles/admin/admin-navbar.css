@@ -1,25 +1,35 @@
 .admin-navbar {
   height: 60px;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border-color);
+  background: #ffffff;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  position: fixed;
-  left: 240px;
-  right: 0;
-  top: 0;
-  z-index: 50;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.admin-navbar h3{
+  color: #FF7A00;
+}
+.dark .admin-navbar {
+  background: #111;
+  color: #fff;
+  box-shadow: none;
+}
+.dark .admin-navbar h3{
+  color: white;
 }
 
-.admin-navbar h1 {
-  font-size: 20px;
-  color: var(--accent-color);
+.theme-toggle-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #FFA700;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-/* Mobile */
-@media (max-width: 700px) {
-  .admin-navbar {
-    left: 0;
-  }
+.theme-toggle-btn:hover {
+  background: #FF7A00;
 }

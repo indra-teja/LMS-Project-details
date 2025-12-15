@@ -11,6 +11,9 @@
     cursor: pointer;
 }
 .dark .navbar {
-  background: #1a1a1a;
-  border-bottom-color: #FFB733;
+  background: #111;
+  color: #fff;
+}
+.dark .navbar h3{
+  color: white;
 }

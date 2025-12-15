@@ -4,6 +4,7 @@
   width: 100%;
 }
 
+/* Main content */
 .student-main {
   flex: 1;
   display: flex;
@@ -12,7 +13,14 @@
   overflow-y: auto;
 }
 
+/* Page content */
 .student-content {
   padding: 20px;
   min-height: calc(100vh - 60px);
+}
+
+/* 🌙 Dark mode support */
+.dark .student-main {
+  background: #0f0f0f;
+  color: #f5f5f5;
 }

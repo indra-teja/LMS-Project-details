@@ -1,0 +1,44 @@
+.instructor-attendance-page {
+  padding: 20px;
+  text-align: center;
+}
+
+.start-btn,
+.stop-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.start-btn {
+  background: #FFA700;
+  color: #000;
+}
+
+.stop-btn {
+  background: #ff4d4d;
+  color: #fff;
+  margin-top: 15px;
+}
+
+.qr-card {
+  margin: 30px auto;
+  padding: 25px;
+  max-width: 350px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.timer {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.dark .qr-card {
+  background: #111;
+  color: #fff;
+}

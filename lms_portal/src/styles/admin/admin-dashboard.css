@@ -3,6 +3,21 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+.admin-box {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.dark .admin-box {
+  background: #111;
+  color: #fff;
+}
+
 
 .admin-card {
   background: var(--card-bg);

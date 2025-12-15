@@ -6,15 +6,16 @@ import "../../styles/admin/admin-layout.css";
 function AdminLayout() {
   return (
     <div className="admin-layout">
-      <AdminSidebar />
+        <AdminSidebar />
 
-      <div className="admin-content">
-        <AdminNavbar />
-        <div className="admin-page">
-          <Outlet />
+        <div className="admin-main">
+          <AdminNavbar />
+          <div className="admin-content">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+
   );
 }
 

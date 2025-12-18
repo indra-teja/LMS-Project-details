@@ -1,0 +1,143 @@
+/* ================= Modern Admin Settings ================= */
+
+.admin-settings {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Page title */
+.admin-settings h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #1f2937;
+}
+
+/* Subtitle */
+.settings-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* Settings card */
+.settings-section {
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+/* Section heading */
+.settings-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* Input groups */
+.form-group {
+  margin-bottom: 18px;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Inputs */
+.settings-section input[type="text"],
+.settings-section input[type="email"],
+.settings-section input[type="number"] {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  background: #fff;
+  transition: 0.25s ease;
+}
+
+.settings-section input:focus {
+  outline: none;
+  border-color: #ff7a00;
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.15);
+}
+
+/* Toggle rows */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 15px;
+}
+
+.toggle-row span {
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Checkbox */
+.toggle-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #ff7a00;
+  cursor: pointer;
+}
+
+/* Actions */
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+/* Buttons */
+.admin-btn {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff7a00, #ff9a3c);
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
+}
+
+.admin-btn.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.admin-btn.secondary:hover {
+  background: #d1d5db;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-btn {
+    width: 100%;
+  }
+}

@@ -28,6 +28,7 @@ urlpatterns = [
     path('notifications/',include('notifications.urls')),
     path('quizzes/',include('quizzes.urls')),
     path('settings/',include('system_settings.urls')),
+    path('attendance/',include('attendance.urls')),
 ]
 
 urlpatterns += static(

@@ -1,98 +1,123 @@
-/* ===============================
-   Main Container
-================================ */
-.i-box {
-  padding: 24px;
-  background: var(--card-bg);
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+/* Page */
+.page-title {
+  margin-bottom: 20px;
 }
 
-.i-box h2 {
-  margin-bottom: 18px;
-  font-size: 22px;
+/* Search */
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.search-box button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #ff9800;
+  color: #fff;
   font-weight: 600;
+  cursor: pointer;
 }
 
-/* ===============================
-   Card Wrapper
-================================ */
-.performance-card {
-  background: var(--card-bg);
-  padding: 22px;
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  overflow-x: auto;
+.search-box button:hover {
+  background: #fb8c00;
 }
 
-/* ===============================
-   Table
-================================ */
-.performance-table {
-  width: 100%;
-  border-collapse: collapse;
+/* Error */
+.error-text {
+  color: #d32f2f;
+  margin-bottom: 15px;
+}
+
+/* Student Info */
+.student-info-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.student-info-card h3 {
+  margin: 0;
+}
+
+.student-info-card .email {
   font-size: 14px;
+  color: #666;
+  margin-top: 4px;
 }
 
-.performance-table th,
-.performance-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-color);
-  text-align: left;
-}
-
-/* Table header */
-.performance-table th {
-  background: rgba(255, 167, 0, 0.25);
-  font-weight: 600;
-  color: #000;
-}
-
-/* Row hover */
-.performance-table tbody tr:hover td {
-  background: rgba(255, 167, 0, 0.12);
-}
-
-/* ===============================
-   Status Badges
-================================ */
-.status {
-  font-weight: 600;
-  padding: 6px 12px;
+/* Status Badge */
+.status-badge {
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 12px;
-  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.status.good {
-  background: rgba(46, 204, 113, 0.2);
-  color: #2ecc71;
+.status-badge.good {
+  background: #e8f5e9;
+  color: #2e7d32;
 }
 
-.status.average {
-  background: rgba(241, 196, 15, 0.25);
-  color: #f39c12;
+.status-badge.average {
+  background: #fff3e0;
+  color: #ef6c00;
 }
 
-.status.poor {
-  background: rgba(231, 76, 60, 0.25);
-  color: #e74c3c;
+.status-badge.needs\ improvement {
+  background: #ffebee;
+  color: #c62828;
 }
 
-/* ===============================
-   Dark Mode
-================================ */
-[data-theme="dark"] .performance-table th {
-  background: rgba(255, 167, 0, 0.35);
-  color: #000;
+/* Performance Cards */
+.performance-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
 }
 
-[data-theme="dark"] .performance-table td {
-  color: #ffffff;
+.perf-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
-[data-theme="dark"] .performance-table tbody tr:hover td {
-  background: #333;
+.perf-card h4 {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.perf-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ff9800;
+}
+
+.perf-desc {
+  font-size: 13px;
+  color: #777;
+  margin-top: 6px;
+}
+
+/* Chart */
+.chart-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }

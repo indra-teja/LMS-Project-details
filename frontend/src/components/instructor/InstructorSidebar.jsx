@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-
-// Correct CSS import
 import "../../styles/instructor/instructor-sidebar.css";
 
 export default function InstructorSidebar() {
@@ -23,14 +21,16 @@ export default function InstructorSidebar() {
         <Link to="/instructor/dashboard">Dashboard</Link>
         <Link to="/instructor/add-course">Add Course</Link>
         <Link to="/instructor/manage-courses">Manage Courses</Link>
-        <Link to="/instructor/attendance">Attendance Tracking</Link>
         <Link to="/instructor/create-quiz">Create Quiz</Link>
-        <Link to="/instructor/student-performance">Student Performance</Link>
-        <Link to="/instructor/view-queries">View Queries</Link>
+        <Link to="/instructor/student-performance">Performance</Link>
+        <Link to="/instructor/view-queries">Queries</Link>
         <Link to="/instructor/profile">Profile</Link>
       </nav>
 
-      <button className="i-logout" onClick={logout}>Logout</button>
+
+      <button className="i-logout" onClick={logout}>
+        Logout
+      </button>
     </div>
   );
 }

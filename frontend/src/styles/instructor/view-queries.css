@@ -1,133 +1,69 @@
-/* ===============================
-   Main Container
-================================ */
-.i-box {
-  padding: 24px;
-  background: var(--card-bg);
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
-
-.i-box h2 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* ===============================
-   Queries Wrapper
-================================ */
 .queries-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  display: grid;
+  gap: 20px;
 }
 
-/* ===============================
-   Query Card
-================================ */
 .query-card {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
-/* Header */
 .query-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
 }
 
-.query-header h4 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-/* Course tag */
-.course-tag {
-  padding: 4px 10px;
-  border-radius: 20px;
+.status {
   font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
   font-weight: 600;
-  background: rgba(255, 167, 0, 0.25);
-  color: #000;
 }
 
-/* Query text */
+.status.pending {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.status.resolved {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
 .query-text {
-  font-size: 14px;
-  color: var(--text-color);
-  margin-bottom: 12px;
+  margin: 14px 0;
+  color: #333;
 }
 
-/* Reply input */
 .reply-input {
   width: 100%;
-  min-height: 90px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1.5px solid var(--border-color);
-  font-size: 14px;
-  background: rgba(0, 0, 0, 0.02);
-  color: var(--text-color);
-  outline: none;
-  resize: vertical;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-/* Hover */
-.reply-input:hover {
-  border-color: var(--accent-color);
-}
-
-/* Focus */
-.reply-input:focus {
-  border-color: var(--accent-color);
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.28);
-}
-
-/* Reply button */
 .reply-btn {
   margin-top: 10px;
-  padding: 10px 18px;
-  background: var(--accent-color);
-  color: #000;
+  padding: 8px 16px;
+  background: #ff9800;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  color: #fff;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
 }
 
 .reply-btn:hover {
-  background: #ff8c00;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fb8c00;
 }
 
-/* ===============================
-   Dark Mode
-================================ */
-[data-theme="dark"] .reply-input {
-  background: #1f1f1f;
-  border-color: #444;
-  color: #ffffff;
-}
-
-[data-theme="dark"] .reply-input:focus {
-  background: #1f1f1f;
-  box-shadow: 0 0 0 3px rgba(255, 167, 0, 0.35);
+.reply-box {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+  color: #333;
 }

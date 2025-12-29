@@ -8,6 +8,20 @@
   background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
 }
 
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  overflow: hidden;
+}
+
+.login-card {
+  position: relative;
+  z-index: 1; /* critical */
+}
+
 /* Login card */
 .login-card {
   width: 100%;
@@ -75,4 +89,23 @@
   .login-card {
     padding: 26px 22px;
   }
+}
+
+.password-input {
+  position: relative;
+  width: 100%;
+}
+
+.password-input input {
+  padding-right: 40px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
 }

@@ -3,7 +3,7 @@ from accounts.models import User
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     instructor = models.ForeignKey(
         User,
@@ -40,3 +40,13 @@ class CourseContent(models.Model):
     video_url = models.URLField(blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ContentProgress(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.ForeignKey(CourseContent, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=True)
+    completed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("student", "content")

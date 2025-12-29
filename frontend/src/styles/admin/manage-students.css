@@ -1,16 +1,149 @@
-.admin-box table {
+/* =====================
+   PAGE CONTAINER
+   ===================== */
+.admin-box {
+  padding: 20px;
+  background: #f6f7fb;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin-box {
+    background: #0f172a;
+    color: #e5e7eb;
+  }
+}
+
+.admin-box h2 {
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+
+/* =====================
+   ADD BUTTON
+   ===================== */
+.admin-box > .admin-btn {
+  margin-bottom: 16px;
+}
+
+/* =====================
+   TABLE
+   ===================== */
+.admin-table {
   width: 100%;
   border-collapse: collapse;
+  background: #ffffff;
 }
 
-.admin-box th,
-.admin-box td {
-  border: 1px solid var(--border-color);
+@media (prefers-color-scheme: dark) {
+  .admin-table {
+    background: #020617;
+  }
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #e5e7eb;
   padding: 12px;
   text-align: left;
+  font-size: 14px;
 }
 
-.admin-box th {
-  background: var(--accent-color);
-  color: white;
+@media (prefers-color-scheme: dark) {
+  .admin-table th,
+  .admin-table td {
+    border-color: #1e293b;
+  }
+}
+
+.admin-table th {
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.admin-table td button {
+  margin-right: 6px;
+}
+
+/* =====================
+   ADD / EDIT FORM
+   ===================== */
+.admin-edit-box {
+  margin-top: 20px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  max-width: 500px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin-edit-box {
+    background: #020617;
+    border-color: #1e293b;
+  }
+}
+
+.admin-edit-box h3 {
+  margin-bottom: 12px;
+}
+
+/* =====================
+   INPUTS & SELECT
+   ===================== */
+.admin-edit-box input,
+.admin-edit-box select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin-edit-box input,
+  .admin-edit-box select {
+    background: #020617;
+    color: #e5e7eb;
+    border-color: #1e293b;
+  }
+}
+
+.admin-edit-box select {
+  min-height: 90px;
+}
+
+/* =====================
+   FORM BUTTONS
+   ===================== */
+.admin-edit-box .admin-btn {
+  margin-right: 8px;
+  margin-top: 6px;
+}
+
+/* =====================
+   MOBILE FIXES
+   ===================== */
+@media (max-width: 768px) {
+  .admin-box {
+    padding: 14px;
+  }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-edit-box {
+    max-width: 100%;
+  }
+
+  .admin-box h2 {
+    font-size: 18px;
+  }
 }

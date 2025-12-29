@@ -5,37 +5,55 @@ import "../../styles/admin/admin-common.css";
 
 function ManageStudents() {
   const [students, setStudents] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Add student state
   const [showAddForm, setShowAddForm] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  // Edit student state
   const [editingStudent, setEditingStudent] = useState(null);
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
 
-  // Fetch students
+  /* =========================
+     FETCH DATA
+     ========================= */
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/accounts/admin/students/")
       .then((res) => {
         setStudents(res.data);
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch students", err);
-        setLoading(false);
       });
+
+    axios
+      .get("http://127.0.0.1:8000/courses/admin/")
+      .then((res) => setCourses(res.data));
   }, []);
 
-  // Add student
+  /* =========================
+     PASSWORD GENERATOR
+     ========================= */
+  const generateRandomPassword = (length = 10) => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
+    let password = "";
+
+    for (let i = 0; i < length; i++) {
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+  };
+
+  /* =========================
+     ADD STUDENT
+     ========================= */
   const addStudent = () => {
     if (!newName || !newEmail || !newPassword) {
-      alert("All fields are required");
+      alert("All fields required");
       return;
     }
 
@@ -44,37 +62,32 @@ function ManageStudents() {
         name: newName,
         email: newEmail,
         password: newPassword,
+        courses: selectedCourses,
       })
       .then((res) => {
-        setStudents([
-          ...students,
-          {
-            id: res.data.id,
-            name: newName,
-            email: newEmail,
-            is_active: true,
-          },
-        ]);
-
-        setNewName("");
-        setNewEmail("");
-        setNewPassword("");
-        setShowAddForm(false);
+        setStudents([...students, res.data]);
+        resetAddForm();
       })
-      .catch((err) => {
-        console.error("Failed to add student", err);
-        alert("Error creating student");
-      });
+      .catch(() => alert("Failed to create student"));
   };
 
-  // Start editing
+  const resetAddForm = () => {
+    setShowAddForm(false);
+    setNewName("");
+    setNewEmail("");
+    setNewPassword("");
+    setSelectedCourses([]);
+  };
+
+  /* =========================
+     EDIT STUDENT
+     ========================= */
   const startEdit = (student) => {
     setEditingStudent(student);
     setEditName(student.name);
     setEditEmail(student.email);
   };
 
-  // Update student
   const updateStudent = () => {
     axios
       .put(
@@ -93,159 +106,166 @@ function ManageStudents() {
           )
         );
         setEditingStudent(null);
-      })
-      .catch((err) => {
-        console.error("Failed to update student", err);
       });
   };
 
-  // Delete student
+  /* =========================
+     DELETE STUDENT
+     ========================= */
   const deleteStudent = (id) => {
-    if (!window.confirm("Are you sure you want to delete this student?")) {
-      return;
-    }
+    if (!window.confirm("Delete student?")) return;
 
     axios
       .delete(`http://127.0.0.1:8000/accounts/admin/students/${id}/delete/`)
-      .then(() => {
-        setStudents(students.filter((s) => s.id !== id));
-      })
-      .catch((err) => {
-        console.error("Failed to delete student", err);
-      });
+      .then(() => setStudents(students.filter((s) => s.id !== id)));
   };
 
   return (
     <div className="admin-box">
       <h2>Manage Students</h2>
 
-      <div className="admin-actions">
-        <button
-          className="admin-btn"
-          onClick={() => setShowAddForm(true)}
-        >
-          Add Student
-        </button>
-        <button className="admin-btn secondary">Import CSV</button>
-      </div>
+      {/* ADD STUDENT BUTTON */}
+      <button
+        type="button"
+        className="admin-btn"
+        onClick={() => {
+          setShowAddForm(true);
+          setNewPassword(generateRandomPassword());
+        }}
+      >
+        Add Student
+      </button>
 
-      {/* Add Student Form */}
+      {/* ADD STUDENT FORM */}
       {showAddForm && (
         <div className="admin-edit-box">
           <h3>Add Student</h3>
 
           <input
-            type="text"
-            placeholder="Student Name"
+            placeholder="Name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
 
           <input
-            type="email"
-            placeholder="Student Email"
+            placeholder="Email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
           />
 
           <input
-            type="password"
+            type="text"
             placeholder="Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
 
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={addStudent}>
-              Create
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setShowAddForm(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          <button
+            type="button"
+            className="admin-btn secondary"
+            onClick={() => setNewPassword(generateRandomPassword())}
+          >
+            Regenerate Password
+          </button>
+
+          <select
+            multiple
+            value={selectedCourses}
+            onChange={(e) =>
+              setSelectedCourses(
+                Array.from(e.target.selectedOptions, (o) => o.value)
+              )
+            }
+          >
+            {courses.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.title} - {c.instructor_name}
+              </option>
+            ))}
+          </select>
+
+          <button type="button" className="admin-btn" onClick={addStudent}>
+            Create
+          </button>
+
+          <button
+            type="button"
+            className="admin-btn secondary"
+            onClick={resetAddForm}
+          >
+            Cancel
+          </button>
         </div>
       )}
 
-      {/* Edit Student Form */}
-      {editingStudent && (
-        <div className="admin-edit-box">
-          <h3>Edit Student</h3>
-
-          <input
-            type="text"
-            value={editName}
-            onChange={(e) => setEditName(e.target.value)}
-          />
-
-          <input
-            type="email"
-            value={editEmail}
-            onChange={(e) => setEditEmail(e.target.value)}
-          />
-
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={updateStudent}>
-              Update
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setEditingStudent(null)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Students Table */}
+      {/* STUDENT TABLE */}
       {loading ? (
-        <p>Loading students...</p>
+        <p>Loading...</p>
       ) : (
         <table className="admin-table">
           <thead>
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {students.length === 0 ? (
-              <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  No students found
+            {students.map((s) => (
+              <tr key={s.id}>
+                <td>{s.name}</td>
+                <td>{s.email}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="admin-btn secondary"
+                    onClick={() => startEdit(s)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    className="admin-btn danger"
+                    onClick={() => deleteStudent(s.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
-            ) : (
-              students.map((student) => (
-                <tr key={student.id}>
-                  <td>{student.name}</td>
-                  <td>{student.email}</td>
-                  <td>{student.is_active ? "Active" : "Inactive"}</td>
-                  <td>
-                    <button
-                      className="admin-btn secondary"
-                      onClick={() => startEdit(student)}
-                    >
-                      Edit
-                    </button>{" "}
-                    <button
-                      className="admin-btn danger"
-                      onClick={() => deleteStudent(student.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
+      )}
+
+      {/* EDIT STUDENT FORM */}
+      {editingStudent && (
+        <div className="admin-edit-box">
+          <h3>Edit Student</h3>
+
+          <input
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+          />
+
+          <input
+            value={editEmail}
+            onChange={(e) => setEditEmail(e.target.value)}
+          />
+
+          <button type="button" className="admin-btn" onClick={updateStudent}>
+            Update
+          </button>
+
+          <button
+            type="button"
+            className="admin-btn secondary"
+            onClick={() => setEditingStudent(null)}
+          >
+            Cancel
+          </button>
+        </div>
       )}
     </div>
   );

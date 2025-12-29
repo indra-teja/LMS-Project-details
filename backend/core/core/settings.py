@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 
 import os
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'corsheaders',
     'accounts',
     'courses',
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'notifications',
     'quizzes',
     'system_settings',
+    'attendance',
 ]
 
 
@@ -151,3 +154,12 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ]
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "vcubepython938@gmail.com"
+EMAIL_HOST_PASSWORD = "kfjx ixbr bzjt rjyd"

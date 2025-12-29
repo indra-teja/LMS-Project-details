@@ -1,8 +1,13 @@
-from django.urls import path,include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('e_demo/',views.mark_attendance),
-    path('student-dashboard/', views.student_dashboard),
-]
+    path("student-courses/", views.student_courses),
+    path("student-course/<int:course_id>/", views.student_course_detail),
+    path("mark-content-complete/", views.mark_content_complete),
+    path("student-dashboard/", views.student_dashboard),
+    path("student-performance/", views.student_performance),
+    #path("mark-attendance/", views.mark_attendance),
+    #path("attendance-summary/", views.student_attendance_summary),
 
+]

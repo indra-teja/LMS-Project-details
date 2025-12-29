@@ -1,0 +1,120 @@
+/* ================= Container ================= */
+.i-box {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 30px auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= Heading ================= */
+.i-box h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+  border-left: 5px solid #ff9800;
+  padding-left: 12px;
+}
+
+/* ================= Form ================= */
+.question-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================= Question Textarea ================= */
+.question-form textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  resize: vertical;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.question-form textarea:focus {
+  border-color: #ff9800;
+}
+
+/* ================= Options ================= */
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f9f9f9;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.option-row input[type="text"] {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.option-row input[type="text"]:focus {
+  border-color: #4caf50;
+}
+
+/* ================= Checkbox ================= */
+.option-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.option-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #4caf50;
+  cursor: pointer;
+}
+
+/* ================= Button ================= */
+.add-btn {
+  align-self: flex-end;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, #ff9800, #ff6f00);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .i-box {
+    padding: 20px;
+  }
+
+  .option-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

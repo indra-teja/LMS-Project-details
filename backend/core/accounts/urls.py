@@ -26,6 +26,6 @@ urlpatterns = [
 
 
     # Email related 
-    path("test-email/", test_email),
+    path("test-email/", test_email),             
 
 ]

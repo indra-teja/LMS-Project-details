@@ -1,0 +1,135 @@
+.student-course-detail {
+  padding: 20px;
+  background: #f6f7fb;
+  min-height: 100vh;
+}
+
+.course-title {
+  margin-bottom: 10px;
+}
+
+.course-description {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.course-content {
+  margin-top: 10px;
+}
+
+.content-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   OPEN BUTTON (FIXED)
+========================= */
+
+.open-btn {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  padding: 14px 16px;
+
+  background-color: #ff9800;
+  color: #ffffff;
+
+  border: 2px solid #ff9800;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.open-btn:hover {
+  background-color: #fb8c00;
+  border-color: #fb8c00;
+}
+
+/* =========================
+   COMPLETE BUTTON
+========================= */
+
+.complete-btn {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 16px;
+
+  background-color: #4caf50;
+  color: #ffffff;
+
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.complete-btn:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.completed {
+  display: block;
+  margin-top: 10px;
+  color: #2e7d32;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+body.dark .student-course-detail,
+.dark .student-course-detail {
+  background: #0f1117;
+  color: #e6e6e6;
+}
+
+body.dark .course-description,
+body.dark .content-card,
+.dark .course-description,
+.dark .content-card {
+  background: #1c1f26;
+  box-shadow: none;
+}
+
+body.dark .open-btn,
+.dark .open-btn {
+  background-color: #ffb74d;
+  border-color: #ffb74d;
+  color: #000000;
+}
+
+body.dark .complete-btn,
+.dark .complete-btn {
+  background-color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .open-btn,
+  .complete-btn {
+    width: 100%;
+  }
+}

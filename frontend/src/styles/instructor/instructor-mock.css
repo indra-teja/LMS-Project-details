@@ -1,0 +1,38 @@
+.mock-page {
+  max-width: 600px;
+  margin: auto;
+}
+
+.mock-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.mock-card label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.mock-card input,
+.mock-card select,
+.mock-card textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.mock-card button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

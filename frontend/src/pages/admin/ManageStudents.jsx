@@ -3,72 +3,90 @@ import axios from "axios";
 import "../../styles/admin/manage-students.css";
 import "../../styles/admin/admin-common.css";
 
+const API = "http://127.0.0.1:8000";
+
 function ManageStudents() {
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const [editingStudent, setEditingStudent] = useState(null);
-  const [editName, setEditName] = useState("");
-  const [editEmail, setEditEmail] = useState("");
+  const [restoreCandidate, setRestoreCandidate] = useState(null);
 
   /* =========================
-     FETCH DATA
+     LOAD DATA
      ========================= */
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/accounts/admin/students/")
-      .then((res) => {
-        setStudents(res.data);
-        setLoading(false);
-      });
-
-    axios
-      .get("http://127.0.0.1:8000/courses/admin/")
-      .then((res) => setCourses(res.data));
+    loadStudents();
+    loadCourses();
   }, []);
+
+  const loadStudents = () => {
+    axios.get(`${API}/accounts/admin/students/`).then((res) => {
+      setStudents(res.data);
+    });
+  };
+
+  const loadCourses = () => {
+    axios.get(`${API}/courses/admin/`).then((res) => {
+      setCourses(res.data);
+    });
+  };
 
   /* =========================
      PASSWORD GENERATOR
      ========================= */
-  const generateRandomPassword = (length = 10) => {
+  const generatePassword = (length = 10) => {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
-    let password = "";
-
+    let pass = "";
     for (let i = 0; i < length; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
+      pass += chars[Math.floor(Math.random() * chars.length)];
     }
-    return password;
+    return pass;
   };
 
   /* =========================
-     ADD STUDENT
+     CREATE STUDENT
      ========================= */
   const addStudent = () => {
     if (!newName || !newEmail || !newPassword) {
-      alert("All fields required");
+      alert("All fields are required");
       return;
     }
 
     axios
-      .post("http://127.0.0.1:8000/accounts/admin/students/create/", {
+      .post(`${API}/accounts/admin/students/create/`, {
         name: newName,
         email: newEmail,
         password: newPassword,
         courses: selectedCourses,
       })
-      .then((res) => {
-        setStudents([...students, res.data]);
+      .then(() => {
+        alert("Student created successfully");
         resetAddForm();
+        loadStudents();
       })
-      .catch(() => alert("Failed to create student"));
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          const msg = err.response.data.error;
+
+          if (msg && msg.includes("deactivated")) {
+            const existing = students.find(
+              (s) => s.email === newEmail
+            );
+            if (existing) setRestoreCandidate(existing);
+          }
+
+          alert(msg || "Failed to create student");
+        } else {
+          alert("Server error");
+        }
+      });
   };
 
   const resetAddForm = () => {
@@ -80,44 +98,52 @@ function ManageStudents() {
   };
 
   /* =========================
-     EDIT STUDENT
+     SOFT DELETE (DEACTIVATE)
      ========================= */
-  const startEdit = (student) => {
-    setEditingStudent(student);
-    setEditName(student.name);
-    setEditEmail(student.email);
-  };
+  const deleteStudent = (id) => {
+    if (!window.confirm("Deactivate this student?")) return;
 
-  const updateStudent = () => {
     axios
-      .put(
-        `http://127.0.0.1:8000/accounts/admin/students/${editingStudent.id}/`,
-        {
-          name: editName,
-          email: editEmail,
-        }
-      )
+      .delete(`${API}/accounts/admin/students/${id}/delete/`)
       .then(() => {
-        setStudents(
-          students.map((s) =>
-            s.id === editingStudent.id
-              ? { ...s, name: editName, email: editEmail }
-              : s
-          )
-        );
-        setEditingStudent(null);
-      });
+        alert("Student deactivated");
+        loadStudents();
+      })
+      .catch(() => alert("Failed to deactivate student"));
   };
 
   /* =========================
-     DELETE STUDENT
+     RESTORE STUDENT
      ========================= */
-  const deleteStudent = (id) => {
-    if (!window.confirm("Delete student?")) return;
+  const restoreStudent = (id) => {
+    axios
+      .post(`${API}/accounts/admin/students/${id}/restore/`)
+      .then(() => {
+        alert("Student restored successfully");
+        setRestoreCandidate(null);
+        loadStudents();
+      })
+      .catch(() => alert("Failed to restore student"));
+  };
+
+  /* =========================
+     FORCE DELETE (PERMANENT)
+     ========================= */
+  const forceDeleteStudent = (id) => {
+    if (
+      !window.confirm(
+        "⚠️ This will permanently delete the student and all related data.\nThis action CANNOT be undone.\n\nContinue?"
+      )
+    )
+      return;
 
     axios
-      .delete(`http://127.0.0.1:8000/accounts/admin/students/${id}/delete/`)
-      .then(() => setStudents(students.filter((s) => s.id !== id)));
+      .delete(`${API}/accounts/admin/students/${id}/force-delete/`)
+      .then(() => {
+        alert("Student permanently deleted");
+        loadStudents();
+      })
+      .catch(() => alert("Failed to permanently delete student"));
   };
 
   return (
@@ -126,11 +152,10 @@ function ManageStudents() {
 
       {/* ADD STUDENT BUTTON */}
       <button
-        type="button"
         className="admin-btn"
         onClick={() => {
           setShowAddForm(true);
-          setNewPassword(generateRandomPassword());
+          setNewPassword(generatePassword());
         }}
       >
         Add Student
@@ -154,16 +179,14 @@ function ManageStudents() {
           />
 
           <input
-            type="text"
             placeholder="Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
 
           <button
-            type="button"
             className="admin-btn secondary"
-            onClick={() => setNewPassword(generateRandomPassword())}
+            onClick={() => setNewPassword(generatePassword())}
           >
             Regenerate Password
           </button>
@@ -173,23 +196,25 @@ function ManageStudents() {
             value={selectedCourses}
             onChange={(e) =>
               setSelectedCourses(
-                Array.from(e.target.selectedOptions, (o) => o.value)
+                Array.from(
+                  e.target.selectedOptions,
+                  (o) => Number(o.value)
+                )
               )
             }
           >
             {courses.map((c) => (
               <option key={c.id} value={c.id}>
-                {c.title} - {c.instructor_name}
+                {c.title}
               </option>
             ))}
           </select>
 
-          <button type="button" className="admin-btn" onClick={addStudent}>
+          <button className="admin-btn" onClick={addStudent}>
             Create
           </button>
 
           <button
-            type="button"
             className="admin-btn secondary"
             onClick={resetAddForm}
           >
@@ -198,75 +223,90 @@ function ManageStudents() {
         </div>
       )}
 
-      {/* STUDENT TABLE */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {students.map((s) => (
-              <tr key={s.id}>
-                <td>{s.name}</td>
-                <td>{s.email}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="admin-btn secondary"
-                    onClick={() => startEdit(s)}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    className="admin-btn danger"
-                    onClick={() => deleteStudent(s.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      {/* EDIT STUDENT FORM */}
-      {editingStudent && (
+      {/* RESTORE PROMPT */}
+      {restoreCandidate && (
         <div className="admin-edit-box">
-          <h3>Edit Student</h3>
+          <h3>Restore Student</h3>
 
-          <input
-            value={editName}
-            onChange={(e) => setEditName(e.target.value)}
-          />
+          <p>
+            Student <b>{restoreCandidate.email}</b> is deactivated.
+            Do you want to restore this student?
+          </p>
 
-          <input
-            value={editEmail}
-            onChange={(e) => setEditEmail(e.target.value)}
-          />
-
-          <button type="button" className="admin-btn" onClick={updateStudent}>
-            Update
+          <button
+            className="admin-btn"
+            onClick={() => restoreStudent(restoreCandidate.id)}
+          >
+            Restore Student
           </button>
 
           <button
-            type="button"
             className="admin-btn secondary"
-            onClick={() => setEditingStudent(null)}
+            onClick={() => setRestoreCandidate(null)}
           >
             Cancel
           </button>
         </div>
       )}
+
+      {/* STUDENT TABLE */}
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {students.map((s) => (
+            <tr key={s.id}>
+              <td>{s.name}</td>
+              <td>{s.email}</td>
+              <td>{s.is_active ? "Active" : "Deactivated"}</td>
+              <td>
+                {s.is_active ? (
+                  <>
+                    <button
+                      className="admin-btn danger"
+                      onClick={() => deleteStudent(s.id)}
+                    >
+                      Deactivate
+                    </button>
+
+                    <button
+                      className="admin-btn danger"
+                      onClick={() => forceDeleteStudent(s.id)}
+                      style={{ marginLeft: "6px" }}
+                    >
+                      Force Delete
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="admin-btn"
+                      onClick={() => restoreStudent(s.id)}
+                    >
+                      Restore
+                    </button>
+
+                    <button
+                      className="admin-btn danger"
+                      onClick={() => forceDeleteStudent(s.id)}
+                      style={{ marginLeft: "6px" }}
+                    >
+                      Force Delete
+                    </button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

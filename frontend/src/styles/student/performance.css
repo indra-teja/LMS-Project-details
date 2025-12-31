@@ -1,16 +1,43 @@
-.performance-grid {
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.remarks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
+  margin-bottom: 20px;
+}
+
+.feedback-card {
+  background: #fff;
+}
+
+.feedback-item {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.feedback-text {
+  margin-top: 6px;
+  color: #374151;
+  font-style: italic;
+}
+
+.project-card {
   margin-top: 20px;
-}
-
-.chart-card {
-  text-align: center;
-}
-
-.chart-card h3 {
-  margin-bottom: 15px;
-  font-size: 20px;
-  font-weight: 600;
 }

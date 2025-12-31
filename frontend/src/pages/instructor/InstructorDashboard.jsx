@@ -55,6 +55,41 @@ function InstructorDashboard() {
             Create
           </button>
         </div>
+
+        {/* 🔽 NEW PERFORMANCE CARDS */}
+
+        <div className="dash-card">
+          <h3>Mock Interviews</h3>
+          <p>Add mock interview scores</p>
+          <button
+            className="dash-btn"
+            onClick={() => navigate("/instructor/mock-interviews")}
+          >
+            Manage
+          </button>
+        </div>
+
+        <div className="dash-card">
+          <h3>Weekly Tests</h3>
+          <p>Update weekly test results</p>
+          <button
+            className="dash-btn"
+            onClick={() => navigate("/instructor/weekly-tests")}
+          >
+            Manage
+          </button>
+        </div>
+
+        <div className="dash-card">
+          <h3>Student Projects</h3>
+          <p>Review real LMS projects</p>
+          <button
+            className="dash-btn"
+            onClick={() => navigate("/instructor/project-review")}
+          >
+            Review
+          </button>
+        </div>
       </div>
     </div>
   );

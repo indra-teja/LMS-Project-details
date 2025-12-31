@@ -5,6 +5,7 @@ export default function InstructorSidebar() {
   const navigate = useNavigate();
 
   const logout = () => {
+    localStorage.clear();   // ✅ FIX
     navigate("/login");
   };
 
@@ -23,10 +24,10 @@ export default function InstructorSidebar() {
         <Link to="/instructor/manage-courses">Manage Courses</Link>
         <Link to="/instructor/create-quiz">Create Quiz</Link>
         <Link to="/instructor/student-performance">Performance</Link>
+        <Link to="/instructor/placements">Placements</Link>
         <Link to="/instructor/view-queries">Queries</Link>
         <Link to="/instructor/profile">Profile</Link>
       </nav>
-
 
       <button className="i-logout" onClick={logout}>
         Logout

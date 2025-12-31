@@ -3,36 +3,51 @@ import axios from "axios";
 import "../../styles/admin/manage-instructors.css";
 import "../../styles/admin/admin-common.css";
 
+const API = "http://127.0.0.1:8000";
+
 function ManageInstructors() {
   const [instructors, setInstructors] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  // Add instructor state
+  // add instructor
   const [showAddForm, setShowAddForm] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  // Edit instructor state
+  // edit instructor
   const [editingInstructor, setEditingInstructor] = useState(null);
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
 
-  // Fetch instructors
+  /* =========================
+     LOAD INSTRUCTORS
+     ========================= */
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/accounts/admin/instructors/")
-      .then((res) => {
-        setInstructors(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch instructors", err);
-        setLoading(false);
-      });
+    loadInstructors();
   }, []);
 
-  // Add instructor
+  const loadInstructors = () => {
+    axios.get(`${API}/accounts/admin/instructors/`).then((res) => {
+      setInstructors(res.data);
+    });
+  };
+
+  /* =========================
+     PASSWORD GENERATOR
+     ========================= */
+  const generatePassword = (length = 10) => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$_";
+    let pass = "";
+    for (let i = 0; i < length; i++) {
+      pass += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return pass;
+  };
+
+  /* =========================
+     CREATE INSTRUCTOR
+     ========================= */
   const addInstructor = () => {
     if (!newName || !newEmail || !newPassword) {
       alert("All fields are required");
@@ -40,211 +55,188 @@ function ManageInstructors() {
     }
 
     axios
-      .post("http://127.0.0.1:8000/accounts/admin/instructors/create/", {
+      .post(`${API}/accounts/admin/instructors/create/`, {
         name: newName,
         email: newEmail,
         password: newPassword,
       })
-      .then((res) => {
-        setInstructors([
-          ...instructors,
-          {
-            id: res.data.id,
-            name: newName,
-            email: newEmail,
-          },
-        ]);
-
-        setNewName("");
-        setNewEmail("");
-        setNewPassword("");
-        setShowAddForm(false);
+      .then(() => {
+        alert("Instructor created successfully");
+        resetAddForm();
+        loadInstructors();
       })
-      .catch((err) => {
-        console.error("Failed to add instructor", err);
-        alert("Error creating instructor");
-      });
+      .catch(() => alert("Failed to create instructor"));
   };
 
-  // Start edit
-  const startEdit = (instructor) => {
-    setEditingInstructor(instructor);
-    setEditName(instructor.name);
-    setEditEmail(instructor.email);
+  const resetAddForm = () => {
+    setShowAddForm(false);
+    setNewName("");
+    setNewEmail("");
+    setNewPassword("");
   };
 
-  // Update instructor
+  /* =========================
+     EDIT INSTRUCTOR
+     ========================= */
+  const startEdit = (inst) => {
+    setEditingInstructor(inst);
+    setEditName(inst.name);
+    setEditEmail(inst.email);
+  };
+
   const updateInstructor = () => {
     axios
       .put(
-        `http://127.0.0.1:8000/accounts/admin/instructors/${editingInstructor.id}/`,
+        `${API}/accounts/admin/instructors/${editingInstructor.id}/`,
         {
           name: editName,
           email: editEmail,
         }
       )
       .then(() => {
-        setInstructors(
-          instructors.map((i) =>
-            i.id === editingInstructor.id
-              ? { ...i, name: editName, email: editEmail }
-              : i
-          )
-        );
+        alert("Instructor updated");
         setEditingInstructor(null);
+        loadInstructors();
       })
-      .catch((err) => {
-        console.error("Failed to update instructor", err);
-      });
+      .catch(() => alert("Update failed"));
   };
 
-  // Delete instructor
+  /* =========================
+     DELETE INSTRUCTOR
+     ========================= */
   const deleteInstructor = (id) => {
-    if (!window.confirm("Are you sure you want to remove this instructor?")) {
-      return;
-    }
+    if (!window.confirm("Remove this instructor?")) return;
 
     axios
-      .delete(
-        `http://127.0.0.1:8000/accounts/admin/instructors/${id}/delete/`
-      )
+      .delete(`${API}/accounts/admin/instructors/${id}/delete/`)
       .then(() => {
-        setInstructors(instructors.filter((i) => i.id !== id));
+        alert("Instructor removed");
+        loadInstructors();
       })
-      .catch((err) => {
-        console.error("Failed to delete instructor", err);
-      });
+      .catch(() => alert("Delete failed"));
   };
 
   return (
     <div className="admin-box">
       <h2>Manage Instructors</h2>
 
-      <div className="admin-actions">
-        <button
-          className="admin-btn"
-          onClick={() => setShowAddForm(true)}
-        >
-          Add Instructor
-        </button>
-      </div>
+      {/* ADD BUTTON */}
+      <button
+        className="admin-btn"
+        onClick={() => {
+          setShowAddForm(true);
+          setNewPassword(generatePassword());
+        }}
+      >
+        Add Instructor
+      </button>
 
-      {/* Add Instructor Form */}
+      {/* ADD FORM */}
       {showAddForm && (
         <div className="admin-edit-box">
           <h3>Add Instructor</h3>
 
           <input
-            type="text"
-            placeholder="Instructor Name"
+            placeholder="Name"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
 
           <input
-            type="email"
-            placeholder="Instructor Email"
+            placeholder="Email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
           />
 
           <input
-            type="password"
             placeholder="Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
 
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={addInstructor}>
-              Create
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setShowAddForm(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          <button
+            className="admin-btn secondary"
+            onClick={() => setNewPassword(generatePassword())}
+          >
+            Regenerate Password
+          </button>
+
+          <button className="admin-btn" onClick={addInstructor}>
+            Create
+          </button>
+
+          <button
+            className="admin-btn secondary"
+            onClick={resetAddForm}
+          >
+            Cancel
+          </button>
         </div>
       )}
 
-      {/* Edit Instructor Form */}
+      {/* EDIT FORM */}
       {editingInstructor && (
         <div className="admin-edit-box">
           <h3>Edit Instructor</h3>
 
           <input
-            type="text"
             value={editName}
             onChange={(e) => setEditName(e.target.value)}
           />
 
           <input
-            type="email"
             value={editEmail}
             onChange={(e) => setEditEmail(e.target.value)}
           />
 
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={updateInstructor}>
-              Update
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setEditingInstructor(null)}
-            >
-              Cancel
-            </button>
-          </div>
+          <button className="admin-btn" onClick={updateInstructor}>
+            Update
+          </button>
+
+          <button
+            className="admin-btn secondary"
+            onClick={() => setEditingInstructor(null)}
+          >
+            Cancel
+          </button>
         </div>
       )}
 
-      {/* Instructors Table */}
-      {loading ? (
-        <p>Loading instructors...</p>
-      ) : (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+      {/* TABLE */}
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {instructors.length === 0 ? (
-              <tr>
-                <td colSpan="3" style={{ textAlign: "center" }}>
-                  No instructors found
-                </td>
-              </tr>
-            ) : (
-              instructors.map((inst) => (
-                <tr key={inst.id}>
-                  <td>{inst.name}</td>
-                  <td>{inst.email}</td>
-                  <td>
-                    <button
-                      className="admin-btn secondary"
-                      onClick={() => startEdit(inst)}
-                    >
-                      Edit
-                    </button>{" "}
-                    <button
-                      className="admin-btn danger"
-                      onClick={() => deleteInstructor(inst.id)}
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      )}
+        <tbody>
+          {instructors.map((i) => (
+            <tr key={i.id}>
+              <td>{i.name}</td>
+              <td>{i.email}</td>
+              <td>
+                <button
+                  className="admin-btn secondary"
+                  onClick={() => startEdit(i)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="admin-btn danger"
+                  onClick={() => deleteInstructor(i.id)}
+                  style={{ marginLeft: "6px" }}
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

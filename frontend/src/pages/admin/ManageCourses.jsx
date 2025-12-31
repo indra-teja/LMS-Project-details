@@ -8,230 +8,85 @@ function ManageCourses() {
   const navigate = useNavigate();
 
   const [courses, setCourses] = useState([]);
-  const [instructors, setInstructors] = useState([]);
+  const [instructors, setInstructors] = useState({});
+  const [students, setStudents] = useState([]);
+  const [expandedCourse, setExpandedCourse] = useState(null);
 
-  // add course
-  const [showAdd, setShowAdd] = useState(false);
-  const [title, setTitle] = useState("");
-  const [instructorId, setInstructorId] = useState("");
-
-  // edit course
-  const [editingCourse, setEditingCourse] = useState(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editInstructorId, setEditInstructorId] = useState("");
-
-  // fetch courses & instructors
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/courses/admin/")
-      .then((res) => setCourses(res.data));
+    axios.get("http://127.0.0.1:8000/courses/admin/")
+      .then(res => setCourses(res.data));
 
-    axios
-      .get("http://127.0.0.1:8000/accounts/admin/instructors/")
-      .then((res) => setInstructors(res.data));
+    axios.get("http://127.0.0.1:8000/accounts/admin/instructors/")
+      .then(res => {
+        const map = {};
+        res.data.forEach(i => map[i.id] = i.name);
+        setInstructors(map);
+      });
   }, []);
 
-  // add course
-  const addCourse = () => {
-    if (!title || !instructorId) {
-      alert("All fields required");
+  const viewStudents = (courseId) => {
+    if (expandedCourse === courseId) {
+      setExpandedCourse(null);
       return;
     }
 
     axios
-      .post("http://127.0.0.1:8000/courses/admin/create/", {
-        title,
-        instructor_id: instructorId,
+      .get(`http://127.0.0.1:8000/enrollments/course/${courseId}/students/`)
+      .then(res => {
+        setStudents(res.data);
+        setExpandedCourse(courseId);
       })
-      .then((res) => {
-        setCourses([
-          ...courses,
-          {
-            id: res.data.id,
-            title,
-            instructor_name: res.data.instructor_name,
-            instructor_id: instructorId,
-          },
-        ]);
-        setTitle("");
-        setInstructorId("");
-        setShowAdd(false);
-      })
-      .catch(() => alert("Error creating course"));
+      .catch(() => alert("Failed to load students"));
   };
 
-  // start edit
-  const startEdit = (course) => {
-    setEditingCourse(course);
-    setEditTitle(course.title);
-    setEditInstructorId(course.instructor_id);
-  };
-
-  // update course
-  const updateCourse = () => {
-    axios
-      .put(
-        `http://127.0.0.1:8000/courses/admin/${editingCourse.id}/`,
-        {
-          title: editTitle,
-          instructor_id: editInstructorId,
-        }
-      )
-      .then(() => {
-        setCourses(
-          courses.map((c) =>
-            c.id === editingCourse.id
-              ? {
-                  ...c,
-                  title: editTitle,
-                  instructor_id: editInstructorId,
-                  instructor_name:
-                    instructors.find(
-                      (i) => i.id === Number(editInstructorId)
-                    )?.name || c.instructor_name,
-                }
-              : c
-          )
-        );
-        setEditingCourse(null);
-      })
-      .catch(() => alert("Update failed"));
-  };
-
-  // delete course
   const deleteCourse = (id) => {
     if (!window.confirm("Delete this course?")) return;
 
     axios
       .delete(`http://127.0.0.1:8000/courses/admin/${id}/delete/`)
-      .then(() => {
-        setCourses(courses.filter((c) => c.id !== id));
-      })
-      .catch(() => alert("Delete failed"));
+      .then(() => setCourses(courses.filter(c => c.id !== id)));
   };
 
   return (
     <div className="admin-box">
       <h2>Manage Courses</h2>
 
-      <div className="admin-actions">
-        <button className="admin-btn" onClick={() => setShowAdd(true)}>
-          Add Course
-        </button>
-      </div>
-
-      {/* ADD COURSE */}
-      {showAdd && (
-        <div className="admin-edit-box">
-          <h3>Add Course</h3>
-
-          <input
-            type="text"
-            placeholder="Course title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-
-          <select
-            value={instructorId}
-            onChange={(e) => setInstructorId(e.target.value)}
-          >
-            <option value="">Select Instructor</option>
-            {instructors.map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.name}
-              </option>
-            ))}
-          </select>
-
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={addCourse}>
-              Create
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setShowAdd(false)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* EDIT COURSE */}
-      {editingCourse && (
-        <div className="admin-edit-box">
-          <h3>Edit Course</h3>
-
-          <input
-            type="text"
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
-          />
-
-          <select
-            value={editInstructorId}
-            onChange={(e) => setEditInstructorId(e.target.value)}
-          >
-            <option value="">Select Instructor</option>
-            {instructors.map((i) => (
-              <option key={i.id} value={i.id}>
-                {i.name}
-              </option>
-            ))}
-          </select>
-
-          <div className="admin-actions">
-            <button className="admin-btn" onClick={updateCourse}>
-              Update
-            </button>
-            <button
-              className="admin-btn secondary"
-              onClick={() => setEditingCourse(null)}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* COURSE TABLE */}
       <table className="admin-table">
         <thead>
           <tr>
             <th>Course</th>
             <th>Instructor</th>
+            <th>Students</th>
             <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
-          {courses.length === 0 ? (
-            <tr>
-              <td colSpan="3" style={{ textAlign: "center" }}>
-                No courses found
-              </td>
-            </tr>
-          ) : (
-            courses.map((course) => (
+          {courses.map(course => (
+            <>
               <tr key={course.id}>
                 <td>{course.title}</td>
-                <td>{course.instructor_name}</td>
+                <td>{instructors[course.instructor_id]}</td>
+
                 <td>
                   <button
                     className="admin-btn secondary"
-                    onClick={() => startEdit(course)}
+                    onClick={() => viewStudents(course.id)}
                   >
-                    Edit
-                  </button>{" "}
+                    View Students
+                  </button>
+                </td>
+
+                <td>
                   <button
                     className="admin-btn"
                     onClick={() =>
-                      navigate(`/admin/courses/${course.id}/content`)
+                      navigate(`/admin/manage-course-content/${course.id}`)
                     }
                   >
                     Content
-                  </button>{" "}
+                  </button>
+
                   <button
                     className="admin-btn danger"
                     onClick={() => deleteCourse(course.id)}
@@ -240,8 +95,39 @@ function ManageCourses() {
                   </button>
                 </td>
               </tr>
-            ))
-          )}
+
+              {expandedCourse === course.id && (
+                <tr>
+                  <td colSpan="4">
+                    {students.length === 0 ? (
+                      <p style={{ padding: "10px" }}>
+                        No students enrolled
+                      </p>
+                    ) : (
+                      <table className="admin-table">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {students.map((s, i) => (
+                            <tr key={s.id}>
+                              <td>{i + 1}</td>
+                              <td>{s.name}</td>
+                              <td>{s.email}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </td>
+                </tr>
+              )}
+            </>
+          ))}
         </tbody>
       </table>
     </div>

@@ -3,10 +3,17 @@ import "../../styles/instructor/instructor-navbar.css";
 
 export default function InstructorNavbar() {
   const instructorName = localStorage.getItem("user_name");
+  const instructorId = localStorage.getItem("user_id");
 
   return (
     <header className="i-navbar">
-      <h2>Welcome, {instructorName || "Instructor"}</h2>
+      <h2>
+        Welcome, {instructorName || "Instructor"}
+        <span style={{ fontSize: "13px", color: "#888", marginLeft: "8px" }}>
+          (ID: {instructorId})
+        </span>
+      </h2>
+
       <DarkModeToggle />
     </header>
   );

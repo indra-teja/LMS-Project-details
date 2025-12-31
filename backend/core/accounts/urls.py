@@ -15,6 +15,9 @@ urlpatterns = [
     path("student/profile/", views.student_profile),
     path("student/profile/update/", views.update_student_profile),
     path("change-password/", views.change_password),
+    path("admin/students/<int:id>/restore/", views.restore_student),
+    path("admin/students/<int:id>/force-delete/", views.force_delete_student),
+
 
 
      # instructors

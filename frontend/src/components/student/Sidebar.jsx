@@ -28,8 +28,12 @@ function Sidebar() {
         <Link to="/student/quizzes">Quizzes</Link>
         <Link to="/student/attendance">Attendance</Link>
         <Link to="/student/practice">Practice</Link>
-        <Link to="/student/profile">Profile</Link>
+
+        {/* ✅ New Placements Section */}
+        <Link to="/student/placements">Placements</Link>
+
         <Link to="/student/queries">Queries</Link>
+        <Link to="/student/profile">Profile</Link>
       </nav>
 
       <button className="logout-btn" onClick={handleLogout}>

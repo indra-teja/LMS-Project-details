@@ -11,6 +11,13 @@ function InstructorProfile() {
   const [photo, setPhoto] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // change password states
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordMsg, setPasswordMsg] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   // Load profile
   useEffect(() => {
     axios
@@ -40,8 +47,6 @@ function InstructorProfile() {
       .then(() => {
         setEditMode(false);
         setPhoto(null);
-
-        // reload profile
         return axios.get(`${API_BASE}/accounts/instructor/profile/`);
       })
       .then((res) => {
@@ -50,6 +55,40 @@ function InstructorProfile() {
       })
       .catch((err) => {
         console.error("Profile update failed", err);
+      });
+  };
+
+  // Change password
+  const changePassword = () => {
+    setPasswordMsg("");
+    setPasswordError("");
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      setPasswordError("All fields are required");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New password and confirm password do not match");
+      return;
+    }
+
+    axios
+      .post(`${API_BASE}/accounts/change-password/`, {
+        user_id: profile.id,
+        old_password: oldPassword,
+        new_password: newPassword,
+      })
+      .then((res) => {
+        setPasswordMsg(res.data.message);
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      })
+      .catch((err) => {
+        setPasswordError(
+          err.response?.data?.error || "Password change failed"
+        );
       });
   };
 
@@ -138,6 +177,39 @@ function InstructorProfile() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Change Password Section */}
+      <div className="profile-card">
+        <h3>Change Password</h3>
+
+        <label>Old Password</label>
+        <input
+          type="password"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
+
+        <label>New Password</label>
+        <input
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+
+        <label>Confirm New Password</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+
+        {passwordError && <p className="error-text">{passwordError}</p>}
+        {passwordMsg && <p className="success-text">{passwordMsg}</p>}
+
+        <button className="update-btn" onClick={changePassword}>
+          Change Password
+        </button>
       </div>
     </div>
   );

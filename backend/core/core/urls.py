@@ -29,6 +29,8 @@ urlpatterns = [
     path('quizzes/',include('quizzes.urls')),
     path('settings/',include('system_settings.urls')),
     path('attendance/',include('attendance.urls')),
+    path('placements/',include('placements.urls')),
+    path('batches/',include('batches.urls')),
 ]
 
 urlpatterns += static(

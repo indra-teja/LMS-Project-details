@@ -18,6 +18,8 @@ from django.contrib.auth.hashers import make_password
 
 
 
+
+
 @api_view(['POST'])
 def login(request):
     email = request.data.get('email')
@@ -147,7 +149,7 @@ def update_student(request, id):
 
 
 
-@api_view(['DELETE'])
+@api_view(["DELETE"])
 def delete_student(request, id):
     try:
         student = User.objects.get(id=id, role="STUDENT")
@@ -157,8 +159,21 @@ def delete_student(request, id):
             status=404
         )
 
-    student.delete()
-    return Response({"message": "Student deleted successfully"})
+    if not student.is_active:
+        return Response(
+            {"message": "Student already deactivated"},
+            status=400
+        )
+
+    # ✅ SOFT DELETE
+    student.is_active = False
+    student.save()
+
+    return Response(
+        {"message": "Student deactivated successfully"},
+        status=200
+    )
+
 
 
 
@@ -180,7 +195,14 @@ def list_instructors(request):
 
 
 # CREATE instructor
-@api_view(['POST'])
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.core.mail import send_mail
+from django.conf import settings
+from accounts.models import User
+
+
+@api_view(["POST"])
 def create_instructor(request):
     name = request.data.get("name")
     email = request.data.get("email")
@@ -192,17 +214,48 @@ def create_instructor(request):
     if User.objects.filter(email=email).exists():
         return Response({"error": "Email already exists"}, status=400)
 
+    # Create instructor
     instructor = User.objects.create_user(
         name=name,
         email=email,
         password=password,
-        role="INSTRUCTOR"
+        role="INSTRUCTOR",
     )
 
-    return Response({
-        "message": "Instructor created successfully",
-        "id": instructor.id
-    })
+    # ✅ SEND EMAIL
+    subject = "Your Instructor Account Login Details"
+    message = f"""
+Hello {name},
+
+Your instructor account has been created successfully.
+
+Login URL:
+http://localhost:3000/login
+
+Email: {email}
+Password: {password}
+
+Please login and change your password after first login.
+
+Regards,
+Admin Team
+"""
+
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [email],
+        fail_silently=False,  # IMPORTANT
+    )
+
+    return Response(
+        {
+            "message": "Instructor created successfully. Credentials sent to email.",
+            "id": instructor.id,
+        },
+        status=201,
+    )
 
 
 # UPDATE instructor
@@ -359,63 +412,144 @@ def test_email(request):
     return Response({"message": "Test email sent successfully"})
 
 
+
+
+
+
+
+
+
+
+
 @api_view(["POST"])
 def create_student(request):
     name = request.data.get("name")
     email = request.data.get("email")
     password = request.data.get("password")
-    courses = request.data.get("courses", [])
+    course_ids = request.data.get("courses", [])
 
+    # 1️⃣ Validate required fields
     if not name or not email or not password:
-        return Response({"error": "All fields are required"}, status=400)
+        return Response(
+            {"error": "Name, email and password are required"},
+            status=400
+        )
 
-    # Create student
+    # 2️⃣ Check if user with email already exists
+    existing_user = User.objects.filter(email=email).first()
+
+    if existing_user:
+        # 🔴 Student exists but is deactivated → ask to restore
+        if existing_user.role == "STUDENT" and not existing_user.is_active:
+            return Response(
+                {
+                    "error": "Student already exists but is deactivated. Please restore the student."
+                },
+                status=400
+            )
+
+        # 🔴 Active student already exists
+        return Response(
+            {"error": "Student with this email already exists"},
+            status=400
+        )
+
+    # 3️⃣ Create student user (SOFT DELETE SAFE)
     student = User.objects.create(
         name=name,
         email=email,
         role="STUDENT",
         password=make_password(password),
+        is_active=True
     )
 
-    # Assign courses if any
-    if courses:
-        student.courses.set(courses)
+    # 4️⃣ Enroll student into selected courses (CORRECT WAY)
+    if course_ids:
+        courses = Course.objects.filter(id__in=course_ids)
+        for course in courses:
+            Enrollment.objects.get_or_create(
+                student=student,
+                course=course
+            )
 
-    # ======================
-    # SEND EMAIL
-    # ======================
-    subject = "Welcome to LMS – Your Login Details"
-
-    message = f"""
+    # 5️⃣ Send login email (SAFE)
+    try:
+        subject = "Welcome to LMS – Your Login Details"
+        message = f"""
 Hello {name},
 
 Welcome to our Learning Management System.
-
-Your login credentials are below:
 
 Login URL: http://localhost:5173/login
 Email: {email}
 Password: {password}
 
-Please log in and change your password after first login.
+Please log in and change your password after your first login.
 
 Regards,
 LMS Admin Team
 """
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+    except Exception as e:
+        # Email failure should NOT break student creation
+        print("Email sending failed:", e)
 
-    send_mail(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER,
-        [email],
-        fail_silently=False,
-    )
-
+    # 6️⃣ Success response
     return Response(
         {
-            "message": "Student created and email sent",
             "id": student.id,
+            "name": student.name,
             "email": student.email,
+            "message": "Student created and enrolled successfully"
         },
-        status=201,
+        status=201
+    )
+
+@api_view(["POST"])
+def restore_student(request, id):
+    try:
+        student = User.objects.get(id=id, role="STUDENT")
+    except User.DoesNotExist:
+        return Response(
+            {"error": "Student not found"},
+            status=404
+        )
+
+    if student.is_active:
+        return Response(
+            {"message": "Student is already active"},
+            status=400
+        )
+
+    student.is_active = True
+    student.save()
+
+    return Response(
+        {"message": "Student restored successfully"},
+        status=200
+    )
+
+
+@api_view(["DELETE"])
+def force_delete_student(request, id):
+    try:
+        student = User.objects.get(id=id, role="STUDENT")
+    except User.DoesNotExist:
+        return Response(
+            {"error": "Student not found"},
+            status=404
+        )
+
+    #  PERMANENT DELETE
+    student.delete()
+
+    return Response(
+        {"message": "Student permanently deleted"},
+        status=200
     )

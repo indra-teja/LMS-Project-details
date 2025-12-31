@@ -7,7 +7,7 @@ import Login from "./pages/Login.jsx";
 import StudentLayout from "./layout/StudentLayout.jsx";
 import Dashboard from "./pages/student/Dashboard.jsx";
 import Courses from "./pages/student/Courses.jsx";
-import StudentCourse from "./pages/student/StudentCourse.jsx"; // ✅ NEW
+import StudentCourse from "./pages/student/StudentCourse.jsx";
 import Performance from "./pages/student/Performance.jsx";
 import Quizzes from "./pages/student/Quizzes.jsx";
 import Attendance from "./pages/student/Attendance.jsx";
@@ -17,6 +17,7 @@ import Queries from "./pages/student/Queries.jsx";
 import StudentQuizAttempt from "./pages/student/StudentQuizAttempt.jsx";
 import StudentQuizStart from "./pages/student/StudentQuizStart.jsx";
 import StudentQuizResult from "./pages/student/StudentQuizResult.jsx";
+import StudentPlacements from "./pages/student/StudentPlacements.jsx";
 
 /* -------------------- Instructor Panel -------------------- */
 import InstructorLayout from "./layout/InstructorLayout.jsx";
@@ -32,6 +33,13 @@ import AttendanceTracking from "./pages/instructor/AttendanceTracking.jsx";
 import ManageCourseContent from "./pages/instructor/ManageCourseContent.jsx";
 import EditCourse from "./pages/instructor/EditCourse.jsx";
 import AddQuestion from "./pages/instructor/AddQuestion.jsx";
+import InstructorPlacements from "./pages/instructor/InstructorPlacements.jsx";
+
+
+/* 🔹 NEW Instructor Performance Management Pages */
+import InstructorMockInterviews from "./pages/instructor/InstructorMockInterviews.jsx";
+import InstructorWeeklyTests from "./pages/instructor/InstructorWeeklyTests.jsx";
+import InstructorProjectReview from "./pages/instructor/InstructorProjectReview.jsx";
 
 /* -------------------- Admin Panel -------------------- */
 import AdminLayout from "./layout/admin/AdminLayout.jsx";
@@ -42,6 +50,7 @@ import ManageAdminCourses from "./pages/admin/ManageCourses.jsx";
 import AdminQueries from "./pages/admin/AdminQueries.jsx";
 import AdminSettings from "./pages/admin/AdminSettings.jsx";
 import AdminManageCourseContent from "./pages/admin/AdminManageCourseContent.jsx";
+import AdminPlacements from "./pages/admin/AdminPlacements.jsx";
 
 function App() {
   return (
@@ -56,18 +65,19 @@ function App() {
         <Route path="/student" element={<StudentLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="courses" element={<Courses />} />
-          <Route path="course/:id" element={<StudentCourse />} /> {/* ✅ NEW */}
+          <Route path="course/:id" element={<StudentCourse />} />
           <Route path="performance" element={<Performance />} />
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="practice" element={<Practice />} />
           <Route path="profile" element={<Profile />} />
           <Route path="queries" element={<Queries />} />
-          <Route path="/student/quizzes" element={<Quizzes />} />
-          <Route path="/student/quiz/:quizId" element={<StudentQuizStart />} />
-          <Route path="/student/quiz/:quizId/attempt" element={<StudentQuizAttempt />} />
-          <Route path="/student/quiz/:quizId/result" element={<StudentQuizResult />} />
 
+          <Route path="quiz/:quizId" element={<StudentQuizStart />} />
+          <Route path="quiz/:quizId/attempt" element={<StudentQuizAttempt />} />
+          <Route path="quiz/:quizId/result" element={<StudentQuizResult />} />
+
+          <Route path="placements" element={<StudentPlacements />} />
         </Route>
 
         {/* -------------------- Instructor Panel -------------------- */}
@@ -81,18 +91,24 @@ function App() {
           <Route path="student-performance" element={<StudentPerformance />} />
           <Route path="view-queries" element={<ViewQueries />} />
           <Route path="profile" element={<InstructorProfile />} />
+
           <Route
             path="manage-course-content/:courseId"
             element={<ManageCourseContent />}
           />
           <Route
-            path="/instructor/attendance/:courseId"
+            path="attendance/:courseId"
             element={<InstructorAttendance />}
           />
-
           <Route path="edit-course/:courseId" element={<EditCourse />} />
-          <Route path="quiz/:quizId/add-question" element={<AddQuestion />} />
           <Route path="add-question/:quizId" element={<AddQuestion />} />
+
+          {/* 🔹 NEW Performance Management */}
+          <Route path="mock-interviews" element={<InstructorMockInterviews />} />
+          <Route path="weekly-tests" element={<InstructorWeeklyTests />} />
+          <Route path="project-review" element={<InstructorProjectReview />} />
+
+          <Route path="placements" element={<InstructorPlacements />} />
         </Route>
 
         {/* -------------------- Admin Panel -------------------- */}
@@ -103,14 +119,13 @@ function App() {
           <Route path="manage-courses" element={<ManageAdminCourses />} />
           <Route path="queries" element={<AdminQueries />} />
           <Route path="settings" element={<AdminSettings />} />
-          <Route
-            path="courses/:courseId/content"
-            element={<ManageCourseContent />}
-          />
+
           <Route
             path="manage-course-content/:courseId"
             element={<AdminManageCourseContent />}
           />
+
+          <Route path="placements" element={<AdminPlacements />} />
         </Route>
 
       </Routes>

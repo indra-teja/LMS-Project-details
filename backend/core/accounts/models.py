@@ -4,6 +4,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
     BaseUserManager,
 )
+from batches.models import Batch
+
 
 
 class UserManager(BaseUserManager):
@@ -40,6 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     role = models.CharField(max_length=15, choices=ROLE_CHOICES)
     batch_id = models.IntegerField(null=True, blank=True)
+    
 
     dark_mode = models.BooleanField(default=False)
 

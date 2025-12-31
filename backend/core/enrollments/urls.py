@@ -9,5 +9,9 @@ urlpatterns = [
     path("student-performance/", views.student_performance),
     #path("mark-attendance/", views.mark_attendance),
     #path("attendance-summary/", views.student_attendance_summary),
+    path("students/", views.list_students),
+    path("add-mock-interview/", views.add_mock_interview),
+    path("add-weekly-test/", views.add_weekly_test),
+    path("course/<int:course_id>/students/", views.course_students),
 
 ]

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'quizzes',
     'system_settings',
     'attendance',
+    'placements',
+    'batches',
 ]
 
 

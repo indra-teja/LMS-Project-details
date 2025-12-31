@@ -4,31 +4,33 @@ import axios from "axios";
 import "../../styles/admin/admin-common.css";
 import "../../styles/admin/manage-courses.css";
 
-function ManageCourseContent() {
+function AdminManageCourseContent() {
   const { courseId } = useParams();
 
+  const [contents, setContents] = useState([]);
+
+  // upload
   const [title, setTitle] = useState("");
   const [contentType, setContentType] = useState("VIDEO");
   const [file, setFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
-  const [contents, setContents] = useState([]);
 
-  // Fetch existing contents
+  // edit
+  const [editingContent, setEditingContent] = useState(null);
+
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/courses/admin/${courseId}/content/`)
-      .then((res) => setContents(res.data))
-      .catch(() => console.log("No content yet"));
+    if (!courseId) return;
+    fetchContents();
   }, [courseId]);
 
-  // Upload content
+  const fetchContents = () => {
+    axios
+      .get(`http://127.0.0.1:8000/courses/admin/${courseId}/content/`)
+      .then((res) => setContents(res.data));
+  };
+
   const uploadContent = (e) => {
     e.preventDefault();
-
-    if (!title) {
-      alert("Title required");
-      return;
-    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -43,49 +45,78 @@ function ManageCourseContent() {
     axios
       .post(
         `http://127.0.0.1:8000/courses/admin/${courseId}/content/upload/`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        formData
       )
       .then(() => {
-        alert("Content uploaded");
-        setTitle("");
-        setFile(null);
-        setVideoUrl("");
-
-        return axios.get(
-          `http://127.0.0.1:8000/courses/admin/${courseId}/content/`
-        );
-      })
-      .then((res) => setContents(res.data))
-      .catch(() => alert("Upload failed"));
+        resetForm();
+        fetchContents();
+      });
   };
-  const deleteContent = (contentId) => {
-  if (!window.confirm("Delete this content?")) return;
 
-  axios
-    .delete(
-      `http://127.0.0.1:8000/courses/admin/content/${contentId}/delete/`
-    )
-    .then(() => {
-      setContents(contents.filter((c) => c.id !== contentId));
-    })
-    .catch(() => {
-      alert("Failed to delete content");
-    });
-};
+  const startEdit = (content) => {
+    setEditingContent(content);
+    setTitle(content.title);
+    setContentType(content.content_type);
+    setVideoUrl(content.video_url || "");
+    setFile(null);
+  };
 
+  const updateContent = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content_type", contentType);
+
+    if (contentType === "LINK") {
+      formData.append("video_url", videoUrl);
+    } else if (file) {
+      formData.append("file", file);
+    }
+
+    axios
+      .put(
+        `http://127.0.0.1:8000/courses/admin/content/${editingContent.id}/update/`,
+        formData
+      )
+      .then(() => {
+        resetForm();
+        fetchContents();
+      });
+  };
+
+  const deleteContent = (id) => {
+    if (!window.confirm("Delete this content?")) return;
+
+    axios
+      .delete(
+        `http://127.0.0.1:8000/courses/admin/content/${id}/delete/`
+      )
+      .then(fetchContents);
+  };
+
+  const resetForm = () => {
+    setTitle("");
+    setContentType("VIDEO");
+    setFile(null);
+    setVideoUrl("");
+    setEditingContent(null);
+  };
 
   return (
     <div className="admin-box">
       <h2>Course Content</h2>
 
-      {/* Upload Form */}
-      <form className="admin-edit-box" onSubmit={uploadContent}>
+      {/* Upload / Edit Form */}
+      <form
+        className="admin-edit-box"
+        onSubmit={editingContent ? updateContent : uploadContent}
+      >
         <input
-          type="text"
-          placeholder="Lesson Title"
+          placeholder="Lesson title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
 
         <select
@@ -99,80 +130,85 @@ function ManageCourseContent() {
 
         {contentType === "LINK" ? (
           <input
-            type="text"
-            placeholder="YouTube / Drive Link"
+            placeholder="Video link"
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
           />
         ) : (
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
+          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
         )}
 
-        <button className="admin-btn">Upload</button>
+        <button className="admin-btn">
+          {editingContent ? "Update" : "Upload"}
+        </button>
+
+        {editingContent && (
+          <button
+            type="button"
+            className="admin-btn secondary"
+            onClick={resetForm}
+          >
+            Cancel
+          </button>
+        )}
       </form>
 
-      {/* Content List */}
+      {/* Content Table */}
       <table className="admin-table">
         <thead>
           <tr>
             <th>Title</th>
             <th>Type</th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
         <tbody>
-          {contents.length === 0 ? (
-            <tr>
-              <td colSpan="3" style={{ textAlign: "center" }}>
-                No content uploaded
+          {contents.map((c) => (
+            <tr key={c.id}>
+              <td>{c.title}</td>
+              <td>{c.content_type}</td>
+              <td>
+                <button
+                  className="admin-btn secondary"
+                  onClick={() => startEdit(c)}
+                >
+                  Edit
+                </button>
+
+                {c.content_type === "LINK" ? (
+                  <a
+                    href={c.video_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="admin-btn secondary"
+                  >
+                    Open
+                  </a>
+                ) : (
+                  <a
+                    href={`http://127.0.0.1:8000${c.file}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="admin-btn secondary"
+                  >
+                    View
+                  </a>
+                )}
+
+                <button
+                  className="admin-btn danger"
+                  onClick={() => deleteContent(c.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
-          ) : (
-            contents.map((c) => (
-              <tr key={c.id}>
-                <td>{c.title}</td>
-                <td>{c.content_type}</td>
-                <td>
-                    {c.content_type === "LINK" ? (
-                        <a
-                        href={c.video_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="admin-btn secondary"
-                        >
-                        Open
-                        </a>
-                    ) : (
-                        <a
-                        href={`http://127.0.0.1:8000${c.file}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="admin-btn secondary"
-                        >
-                        View
-                        </a>
-                    )}
-
-                    <button
-                        className="admin-btn danger"
-                        style={{ marginLeft: "8px" }}
-                        onClick={() => deleteContent(c.id)}
-                    >
-                        Delete
-                    </button>
-                    </td>
-
-              </tr>
-            ))
-          )}
+          ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default ManageCourseContent;
+export default AdminManageCourseContent;

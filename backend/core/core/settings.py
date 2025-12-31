@@ -95,16 +95,17 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LMS_Project',
-        'USER': 'root',
-        'PASSWORD':'1234',
-        'HOST':"localhost",
-        'PORT':3306
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 
+ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -169,3 +170,7 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "vcubepython938@gmail.com"
 EMAIL_HOST_PASSWORD = "kfjx ixbr bzjt rjyd"
+
+
+
+
